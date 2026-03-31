@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { findProjectRoot, loadConfig, dbPath } from '../config';
+import { loadTopPackages } from '../top-packages';
 import { formatScanResult } from '../output';
 import { LocalEngine } from '@ward/shared';
 import type { Verdict } from '@ward/shared';
@@ -47,7 +48,7 @@ export function scanCommand(options: { json?: boolean } = {}): void {
 
   const engine = new LocalEngine({
     dbPath: dbFile,
-    topPackages: [], // Will be loaded from fixture in production
+    topPackages: loadTopPackages(),
     config,
   });
 

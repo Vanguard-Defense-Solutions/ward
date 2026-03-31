@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { findProjectRoot, loadConfig, dbPath } from '../config';
+import { loadTopPackages } from '../top-packages';
 import { formatStatus } from '../output';
 import { LocalEngine } from '@ward/shared';
 
@@ -37,7 +38,7 @@ export function statusCommand(options: { json?: boolean } = {}): void {
   if (fs.existsSync(dbFile)) {
     const engine = new LocalEngine({
       dbPath: dbFile,
-      topPackages: [],
+      topPackages: loadTopPackages(),
       config,
     });
     threatCount = engine.getDB().count();

@@ -88,6 +88,10 @@ export class ThreatDB {
   }
 
   getPragma(name: string): string {
+    // Validate pragma name to prevent SQL injection
+    if (!/^[a-z_]+$/.test(name)) {
+      throw new Error(`Invalid pragma name: ${name}`);
+    }
     const result = this.db.query(`PRAGMA ${name}`).get() as Record<string, unknown> | null;
     if (result) {
       return String(Object.values(result)[0]);

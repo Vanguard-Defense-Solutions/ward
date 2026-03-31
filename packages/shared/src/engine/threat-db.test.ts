@@ -191,5 +191,10 @@ describe('ThreatDB', () => {
       expect(db.lookup('pkg', '1.0.0-rc.1')).not.toBeNull();
       expect(db.lookup('pkg', '1.0.0')).toBeNull();
     });
+
+    it('rejects SQL injection in getPragma', () => {
+      expect(() => db.getPragma('journal_mode; DROP TABLE threats')).toThrow('Invalid pragma name');
+      expect(() => db.getPragma('journal_mode')).not.toThrow();
+    });
   });
 });

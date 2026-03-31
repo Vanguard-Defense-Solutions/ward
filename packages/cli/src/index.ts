@@ -3,6 +3,7 @@ import { Command } from 'commander';
 import { initCommand } from './commands/init';
 import { statusCommand } from './commands/status';
 import { scanCommand } from './commands/scan';
+import { checkInstallCommand } from './commands/check-install';
 
 const program = new Command();
 
@@ -28,5 +29,11 @@ program
   .description('Scan project dependencies for threats')
   .option('--json', 'Output as JSON')
   .action((opts) => scanCommand(opts));
+
+program
+  .command('check-install')
+  .description(false as any) // Hidden command — invoked by npm preinstall hook
+  .option('--json', 'Output as JSON')
+  .action((opts) => checkInstallCommand(opts));
 
 program.parse();
