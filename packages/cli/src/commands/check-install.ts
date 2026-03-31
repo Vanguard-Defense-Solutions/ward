@@ -10,7 +10,7 @@ import { LocalEngine } from '@ward/shared';
  * Reads pending package installs from npm's environment and checks each one.
  * Exits 0 to allow install, exits 1 to block.
  */
-export function checkInstallCommand(options: { json?: boolean; clinical?: boolean; verbose?: boolean } = {}): void {
+export function checkInstallCommand(options: { json?: boolean; clinical?: boolean; verbose?: boolean; packages?: string[] } = {}): void {
   const projectDir = findProjectRoot(process.cwd());
   if (!projectDir) process.exit(0); // Can't find project — don't block
 
@@ -28,21 +28,17 @@ export function checkInstallCommand(options: { json?: boolean; clinical?: boolea
     process.exit(0);
   }
 
-  // Parse packages from npm_config_argv
-  let packages: string[] = [];
-  if (npmArgv) {
+  // Use packages from CLI arguments first (ward check-install pkg1 pkg2)
+  let packages: string[] = (options.packages || []).filter((p: string) => !p.startsWith('-'));
+
+  // Fallback: parse from npm_config_argv (when invoked as preinstall hook)
+  if (packages.length === 0 && npmArgv) {
     try {
       const parsed = JSON.parse(npmArgv);
-      // parsed.remain contains the package names
       packages = (parsed.remain || []).filter((p: string) => !p.startsWith('-'));
     } catch {
-      // If we can't parse argv, check cooked/original arrays
+      // Ignore parse errors
     }
-  }
-
-  // Fallback: check process.argv for package names passed to ward directly
-  if (packages.length === 0) {
-    packages = process.argv.slice(3).filter((a) => !a.startsWith('-'));
   }
 
   // If no packages to check, allow (lockfile install)
