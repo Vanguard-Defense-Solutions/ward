@@ -40,8 +40,11 @@ export function initCommand(options: { json?: boolean } = {}): void {
     process.exit(1);
   }
 
-  // Create .wardrc with defaults
-  saveConfig(projectDir);
+  // Create .wardrc with defaults (only if it doesn't already exist)
+  const rcPath = path.join(projectDir, '.wardrc');
+  if (!fs.existsSync(rcPath)) {
+    saveConfig(projectDir);
+  }
 
   // Create .ward data directory
   wardDataDir(projectDir);

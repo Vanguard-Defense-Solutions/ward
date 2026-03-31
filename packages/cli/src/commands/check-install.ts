@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { findProjectRoot, loadConfig, dbPath } from '../config';
 import { loadTopPackages } from '../top-packages';
-import { formatVerdict, formatVerdictJson } from '../output';
+import { formatVerdict, formatVerdictJson, formatVerdictClinical, formatVerdictVerbose } from '../output';
 import { LocalEngine } from '@ward/shared';
 
 /**
@@ -10,7 +10,7 @@ import { LocalEngine } from '@ward/shared';
  * Reads pending package installs from npm's environment and checks each one.
  * Exits 0 to allow install, exits 1 to block.
  */
-export function checkInstallCommand(options: { json?: boolean } = {}): void {
+export function checkInstallCommand(options: { json?: boolean; clinical?: boolean; verbose?: boolean } = {}): void {
   const projectDir = findProjectRoot(process.cwd());
   if (!projectDir) process.exit(0); // Can't find project — don't block
 
@@ -59,15 +59,24 @@ export function checkInstallCommand(options: { json?: boolean } = {}): void {
     const name = atIdx > 0 ? pkg.substring(0, atIdx) : pkg;
     const version = atIdx > 0 ? pkg.substring(atIdx + 1) : 'latest';
 
+    const start = Date.now();
     const verdict = engine.check({ name, version });
+    const checkTimeMs = Date.now() - start;
+
+    let output: string;
+    if (options.json) {
+      output = formatVerdictJson(verdict);
+    } else if (options.clinical) {
+      output = formatVerdictClinical(verdict, { packageName: name, packageVersion: version, checkTimeMs });
+    } else if (options.verbose) {
+      output = formatVerdictVerbose(verdict, { packageName: name, packageVersion: version, checkTimeMs });
+    } else {
+      output = formatVerdict(verdict);
+    }
+    console.log(output);
 
     if (verdict.action === 'block') {
-      console.log(options.json ? formatVerdictJson(verdict) : formatVerdict(verdict));
       blocked = true;
-    } else if (verdict.action === 'warn') {
-      console.log(options.json ? formatVerdictJson(verdict) : formatVerdict(verdict));
-    } else {
-      console.log(options.json ? formatVerdictJson(verdict) : formatVerdict(verdict));
     }
   }
 

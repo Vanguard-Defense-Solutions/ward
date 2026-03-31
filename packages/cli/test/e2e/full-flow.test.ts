@@ -88,7 +88,7 @@ describe('E2E: Full Ward workflow', () => {
     expect(result).toContain('not initialized');
   });
 
-  it('scan with no lockfile → reports 0 dependencies', () => {
+  it('scan with no lockfile → exits with error', () => {
     fs.writeFileSync(path.join(tmpDir, 'package.json'), JSON.stringify({
       name: 'test-project',
       dependencies: { express: '^4.19.0' },
@@ -96,9 +96,14 @@ describe('E2E: Full Ward workflow', () => {
 
     execSync(`${RUN} init`, { cwd: tmpDir, stdio: 'pipe' });
 
-    const scanResult = execSync(`${RUN} scan --json`, { cwd: tmpDir, encoding: 'utf-8' });
-    const parsed = JSON.parse(scanResult.trim());
-    expect(parsed.total).toBe(0);
+    try {
+      execSync(`${RUN} scan --json`, { cwd: tmpDir, encoding: 'utf-8', stdio: 'pipe' });
+      expect.fail('Should have thrown');
+    } catch (e: any) {
+      const output = (e.stdout?.toString() ?? '') + (e.stderr?.toString() ?? '');
+      const parsed = JSON.parse(output.trim());
+      expect(parsed.error).toContain('No lockfile found');
+    }
   });
 
   it('init is idempotent across the full flow', () => {

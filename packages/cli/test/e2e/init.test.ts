@@ -28,13 +28,21 @@ describe('E2E: ward init', () => {
     expect(result).toContain('Ward initialized');
   });
 
-  it('is idempotent (re-init does not error)', () => {
+  it('is idempotent (re-init preserves custom config)', () => {
     execSync(`${RUN} init`, { cwd: tmpDir, stdio: 'pipe' });
+    // Write a custom config value
+    const rcPath = path.join(tmpDir, '.wardrc');
+    const config = JSON.parse(fs.readFileSync(rcPath, 'utf-8'));
+    config.sensitivity = 'strict';
+    fs.writeFileSync(rcPath, JSON.stringify(config, null, 2) + '\n');
+    // Re-init should not overwrite
     const result = execSync(`${RUN} init`, {
       cwd: tmpDir,
       encoding: 'utf-8',
     });
     expect(result).toContain('Ward initialized');
+    const afterConfig = JSON.parse(fs.readFileSync(rcPath, 'utf-8'));
+    expect(afterConfig.sensitivity).toBe('strict');
   });
 
   it('fails gracefully when no package.json exists', () => {

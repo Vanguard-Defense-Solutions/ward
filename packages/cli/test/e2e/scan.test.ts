@@ -43,7 +43,37 @@ describe('E2E: ward scan', () => {
     expect(result).toContain('2');
   });
 
-  it('outputs JSON when --json flag is used', () => {
+  it('fails with error when no lockfile exists', () => {
+    fs.unlinkSync(path.join(tmpDir, 'package-lock.json'));
+    try {
+      execSync(`${RUN} scan`, {
+        cwd: tmpDir,
+        encoding: 'utf-8',
+        stdio: 'pipe',
+      });
+      expect.fail('Should have thrown');
+    } catch (e: any) {
+      const output = (e.stderr?.toString() ?? '') + (e.stdout?.toString() ?? '') + (e.message ?? '');
+      expect(output).toContain('No lockfile found');
+    }
+  });
+
+  it('fails with error when lockfile is corrupted', () => {
+    fs.writeFileSync(path.join(tmpDir, 'package-lock.json'), '{{{not valid json!!!');
+    try {
+      execSync(`${RUN} scan`, {
+        cwd: tmpDir,
+        encoding: 'utf-8',
+        stdio: 'pipe',
+      });
+      expect.fail('Should have thrown');
+    } catch (e: any) {
+      const output = (e.stderr?.toString() ?? '') + (e.stdout?.toString() ?? '') + (e.message ?? '');
+      expect(output).toContain('corrupted');
+    }
+  });
+
+  it('outputs JSON with verdicts array when --json flag is used', () => {
     const result = execSync(`${RUN} scan --json`, {
       cwd: tmpDir,
       encoding: 'utf-8',
@@ -51,5 +81,9 @@ describe('E2E: ward scan', () => {
     const parsed = JSON.parse(result.trim());
     expect(parsed.total).toBe(2);
     expect(parsed.blocked).toBe(0);
+    expect(Array.isArray(parsed.verdicts)).toBe(true);
+    expect(parsed.verdicts.length).toBe(2);
+    expect(parsed.verdicts[0]).toHaveProperty('action');
+    expect(parsed.verdicts[0]).toHaveProperty('signals');
   });
 });
