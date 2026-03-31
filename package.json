@@ -1,0 +1,19 @@
+{
+  "name": "ward-monorepo",
+  "private": true,
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:unit": "vitest run --reporter=verbose --testPathPattern=unit",
+    "test:e2e": "vitest run --reporter=verbose --testPathPattern=e2e",
+    "build": "bun run --filter '*' build",
+    "lint": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0",
+    "@types/node": "^22.0.0",
+    "@types/better-sqlite3": "^7.6.0"
+  }
+}

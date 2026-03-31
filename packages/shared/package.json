@@ -1,0 +1,15 @@
+{
+  "name": "@ward/shared",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.0.0",
+    "@noble/ed25519": "^2.2.0"
+  }
+}
