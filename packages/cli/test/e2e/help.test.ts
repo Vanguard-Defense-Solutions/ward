@@ -3,7 +3,7 @@ import { execSync } from 'child_process';
 import path from 'path';
 
 const CLI_PATH = path.resolve(__dirname, '../../src/index.ts');
-const RUN = `npx tsx ${CLI_PATH}`;
+const RUN = `bun ${CLI_PATH}`;
 
 describe('E2E: CLI entry point', () => {
   it('shows help with --help flag', () => {

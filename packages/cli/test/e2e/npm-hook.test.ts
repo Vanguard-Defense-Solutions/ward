@@ -5,7 +5,7 @@ import path from 'path';
 import os from 'os';
 
 const CLI_PATH = path.resolve(__dirname, '../../src/index.ts');
-const RUN = `npx tsx ${CLI_PATH}`;
+const RUN = `bun ${CLI_PATH}`;
 
 describe('E2E: npm hook interception', () => {
   let tmpDir: string;

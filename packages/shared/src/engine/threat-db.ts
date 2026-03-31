@@ -1,13 +1,13 @@
-import Database from 'better-sqlite3';
+import { Database } from 'bun:sqlite';
 import type { Signal, ThreatEntry } from '../types';
 
 export class ThreatDB {
-  private db: Database.Database;
+  private db: Database;
 
   constructor(dbPath: string) {
     this.db = new Database(dbPath);
-    this.db.pragma('journal_mode = WAL');
-    this.db.pragma('busy_timeout = 5000');
+    this.db.run('PRAGMA journal_mode = WAL');
+    this.db.run('PRAGMA busy_timeout = 5000');
     this.migrate();
   }
 
@@ -88,11 +88,11 @@ export class ThreatDB {
   }
 
   getPragma(name: string): string {
-    const result = this.db.pragma(name);
-    if (Array.isArray(result) && result.length > 0) {
-      return String(Object.values(result[0])[0]);
+    const result = this.db.query(`PRAGMA ${name}`).get() as Record<string, unknown> | null;
+    if (result) {
+      return String(Object.values(result)[0]);
     }
-    return String(result);
+    return '';
   }
 
   listTables(): string[] {
