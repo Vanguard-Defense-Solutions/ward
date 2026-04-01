@@ -94,7 +94,7 @@ describe('Contract: DeltaSyncClient <-> /sync endpoint', () => {
    * Helper: create a fetch function that routes requests through Hono's
    * app.request() so we don't need a real HTTP server.
    */
-  function createAppFetch(): typeof globalThis.fetch {
+  function createAppFetch(): any {
     return async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
       const url = typeof input === 'string' ? input : input.toString();
       // Extract the path portion from the URL
@@ -142,7 +142,7 @@ describe('Contract: DeltaSyncClient <-> /sync endpoint', () => {
 
   it('sync client rejects tampered API response', async () => {
     // Create a fetch function that tampers with the payload
-    const tamperingFetch: typeof globalThis.fetch = async (input, init) => {
+    const tamperingFetch: any = async (input: any, init: any) => {
       const url = typeof input === 'string' ? input : input.toString();
       const urlObj = new URL(url);
       const pathAndQuery = urlObj.pathname + urlObj.search;

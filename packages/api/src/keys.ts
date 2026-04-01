@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { generateKeyPair } from '@ward/shared/engine/db-signer';
 
-const DATA_DIR = path.resolve(import.meta.dir ?? '.', '..', 'data');
+const DATA_DIR = path.resolve((import.meta as any).dir ?? path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Z]:)/, '$1')), '..', 'data');
 
 export interface KeyPair {
   publicKey: Uint8Array;

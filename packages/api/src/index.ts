@@ -5,8 +5,9 @@ import { loadOrCreateKeyPair } from './keys';
 import type { ThreatEntry } from '@ward/shared/types';
 
 const PORT = parseInt(process.env.PORT ?? '3000', 10);
-const SHARED_DATA = path.resolve(import.meta.dir, '..', '..', 'shared', 'data');
-const DB_PATH = path.resolve(import.meta.dir, '..', 'data', 'ward-api.db');
+const scriptDir = (import.meta as any).dir ?? path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Z]:)/, '$1'));
+const SHARED_DATA = path.resolve(scriptDir, '..', '..', 'shared', 'data');
+const DB_PATH = path.resolve(scriptDir, '..', 'data', 'ward-api.db');
 
 // Load seed data
 const seedPath = path.join(SHARED_DATA, 'seed-threats.json');

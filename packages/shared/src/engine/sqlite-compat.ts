@@ -31,7 +31,7 @@ export interface SQLiteDB {
 /*  Runtime detection                                                  */
 /* ------------------------------------------------------------------ */
 
-const isBun = typeof globalThis.Bun !== 'undefined';
+const isBun = typeof (globalThis as any).Bun !== 'undefined';
 
 /* ------------------------------------------------------------------ */
 /*  Bun wrapper                                                        */
