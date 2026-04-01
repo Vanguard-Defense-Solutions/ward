@@ -90,6 +90,17 @@ Ward's cloud dashboard (coming soon) adds:
 
 Ward is built by [Vanguard Defense Solutions](https://vanguarddefensesolutions.com) — supply chain defense from people who do defense for a living.
 
+## Security Disclaimer
+
+Ward is a defense-in-depth tool that reduces your exposure to supply chain attacks. It is **not a guarantee of protection.** No security tool catches everything.
+
+- Ward's threat database is only as current as its last sync. Zero-day attacks may not be detected until the database is updated.
+- Typosquat detection uses heuristic matching and may produce false positives or miss novel patterns.
+- Ward does not replace professional security audits, penetration testing, or a comprehensive security program.
+- The authors and Vanguard Defense Solutions assume no liability for damages resulting from malicious packages that Ward fails to detect.
+
+Use Ward as one layer in your security posture, not your only layer.
+
 ## License
 
 MIT
