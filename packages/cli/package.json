@@ -1,19 +1,28 @@
 {
-  "name": "ward",
+  "name": "wardshield",
   "version": "0.1.0",
-  "description": "AI development safety — protect your supply chain",
+  "description": "AI development safety — protect your supply chain from malicious packages",
   "bin": { "ward": "./dist/index.js" },
-  "main": "src/index.ts",
+  "main": "dist/index.js",
+  "files": ["dist/", "README.md", "LICENSE"],
   "scripts": {
-    "build": "bun build src/index.ts --outdir dist --target node",
+    "build": "bun build src/index.ts --outdir dist --target bun && mkdir -p dist/data && cp ../shared/data/top-packages.json dist/data/ && bun -e \"const fs=require('fs');const f='dist/index.js';fs.writeFileSync(f,'#!/usr/bin/env bun\\n'+fs.readFileSync(f,'utf-8'))\"",
+    "prepublishOnly": "bun run build",
     "dev": "bun run src/index.ts",
     "test": "vitest run"
   },
   "dependencies": {
-    "@ward/shared": "workspace:*",
     "commander": "^13.0.0"
   },
-  "keywords": ["security", "supply-chain", "npm", "cli"],
+  "keywords": ["security", "supply-chain", "npm", "cli", "ai", "ward", "malware", "typosquat"],
   "license": "MIT",
-  "author": "Vanguard Defense Solutions"
+  "author": "Vanguard Defense Solutions",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Vanguard-Defense-Solutions/ward"
+  },
+  "homepage": "https://github.com/Vanguard-Defense-Solutions/ward",
+  "engines": {
+    "bun": ">=1.0.0"
+  }
 }

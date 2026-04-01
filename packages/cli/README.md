@@ -9,7 +9,7 @@ On March 31, 2026, `axios@1.14.1` was published to npm with a hidden RAT that st
 ## Install
 
 ```bash
-bun install -g wardshield
+npm install -g ward
 ward init
 ```
 
