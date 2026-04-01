@@ -1,12 +1,12 @@
 {
   "name": "wardshield",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "AI development safety — protect your supply chain from malicious packages",
   "bin": { "ward": "./dist/index.js" },
   "main": "dist/index.js",
   "files": ["dist/", "README.md", "LICENSE"],
   "scripts": {
-    "build": "bun build src/index.ts --outdir dist --target bun && mkdir -p dist/data && cp ../shared/data/top-packages.json dist/data/ && bun -e \"const fs=require('fs');const f='dist/index.js';fs.writeFileSync(f,'#!/usr/bin/env bun\\n'+fs.readFileSync(f,'utf-8'))\"",
+    "build": "bun build src/index.ts --outdir dist --target bun && mkdir -p dist/data && cp ../shared/data/top-packages.json dist/data/ && bun -e \"const fs=require('fs');const f='dist/index.js';let c=fs.readFileSync(f,'utf-8');c=c.replace(/^#!.*\\n/,'');fs.writeFileSync(f,'#!/usr/bin/env bun\\n'+c)\"",
     "prepublishOnly": "bun run build",
     "dev": "bun run src/index.ts",
     "test": "vitest run"
