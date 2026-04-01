@@ -5,6 +5,7 @@ import { statusCommand } from './commands/status';
 import { scanCommand } from './commands/scan';
 import { checkInstallCommand } from './commands/check-install';
 import { seedCommand } from './commands/seed';
+import { syncCommand } from './commands/sync';
 
 const program = new Command();
 
@@ -49,6 +50,15 @@ program
   .action((opts) => {
     const globalOpts = program.opts();
     seedCommand({ ...opts, ...globalOpts });
+  });
+
+program
+  .command('sync')
+  .description('Sync threat database from wardshield.com')
+  .option('--json', 'Output as JSON')
+  .action(async (opts) => {
+    const globalOpts = program.opts();
+    await syncCommand({ ...opts, ...globalOpts });
   });
 
 program

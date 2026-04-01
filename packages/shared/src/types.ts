@@ -48,5 +48,5 @@ export const DEFAULT_CONFIG: WardConfig = {
   sensitivity: 'normal',
   allowlist: [],
   cloudEnabled: true,
-  cloudUrl: 'https://api.ward.dev',
+  cloudUrl: 'https://api.wardshield.com',
 };
