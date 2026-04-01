@@ -1,5 +1,10 @@
 # Ward
 
+[![Warded](https://img.shields.io/badge/supply%20chain-Warded-blue?logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBkPSJNOCAxbC02IDN2NGMwIDQuNCAyLjYgOC41IDYgOS45IDMuNC0xLjQgNi01LjUgNi05Ljl2LTR6IiBmaWxsPSIjM2I4MmY2Ii8+PC9zdmc+)](https://github.com/Vanguard-Defense-Solutions/ward)
+[![MIT License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![npm](https://img.shields.io/npm/v/wardshield)](https://www.npmjs.com/package/wardshield)
+[![Tests](https://img.shields.io/badge/tests-271%20passing-brightgreen)]()
+
 **Supply chain defense for AI-assisted developers.**
 
 Ward sits between your AI coding assistant and the package registry. When Claude Code, Cursor, or Copilot tries to install a package, Ward checks it first — and blocks it if it's malicious.
@@ -89,6 +94,14 @@ Ward's cloud dashboard (coming soon) adds:
 ## Built by Vanguard Defense Solutions
 
 Ward is built by [Vanguard Defense Solutions](https://vanguarddefensesolutions.com) — supply chain defense from people who do defense for a living.
+
+## Badge
+
+Show that your project is protected. Add this to your README:
+
+```markdown
+[![Warded](https://img.shields.io/badge/supply%20chain-Warded-blue?logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBkPSJNOCAxbC02IDN2NGMwIDQuNCAyLjYgOC41IDYgOS45IDMuNC0xLjQgNi01LjUgNi05Ljl2LTR6IiBmaWxsPSIjM2I4MmY2Ii8+PC9zdmc+)](https://github.com/Vanguard-Defense-Solutions/ward)
+```
 
 ## Security Disclaimer
 
