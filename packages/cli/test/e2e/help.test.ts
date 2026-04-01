@@ -16,7 +16,7 @@ describe('E2E: CLI entry point', () => {
 
   it('shows version with --version flag', () => {
     const result = execSync(`${RUN} --version`, { encoding: 'utf-8' });
-    expect(result.trim()).toBe('0.1.0');
+    expect(result.trim()).toBe('0.3.0');
   });
 
   it('shows help for init subcommand', () => {

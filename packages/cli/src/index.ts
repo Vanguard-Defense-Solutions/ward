@@ -11,7 +11,7 @@ const program = new Command();
 program
   .name('ward')
   .description('AI development safety — protect your supply chain')
-  .version('0.1.0')
+  .version('0.3.0')
   .option('--clinical', 'Show technical/CVE-style output')
   .option('--verbose', 'Show all signals, check time, and checks ran');
 
