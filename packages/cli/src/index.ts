@@ -4,6 +4,7 @@ import { initCommand } from './commands/init';
 import { statusCommand } from './commands/status';
 import { scanCommand } from './commands/scan';
 import { checkInstallCommand } from './commands/check-install';
+import { seedCommand } from './commands/seed';
 
 const program = new Command();
 
@@ -39,6 +40,15 @@ program
   .action((opts) => {
     const globalOpts = program.opts();
     scanCommand({ ...opts, ...globalOpts });
+  });
+
+program
+  .command('seed')
+  .description('Seed the threat database with known attacks')
+  .option('--json', 'Output as JSON')
+  .action((opts) => {
+    const globalOpts = program.opts();
+    seedCommand({ ...opts, ...globalOpts });
   });
 
 program
