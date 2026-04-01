@@ -6,13 +6,14 @@
   "main": "dist/index.js",
   "files": ["dist/", "README.md", "LICENSE"],
   "scripts": {
-    "build": "bun build src/index.ts --outdir dist --target bun && mkdir -p dist/data && cp ../shared/data/top-packages.json dist/data/ && bun -e \"const fs=require('fs');const f='dist/index.js';let c=fs.readFileSync(f,'utf-8');c=c.replace(/^#!.*\\n/,'');fs.writeFileSync(f,'#!/usr/bin/env bun\\n'+c)\"",
+    "build": "bun build src/index.ts --outdir dist --target node --external better-sqlite3 && mkdir -p dist/data && cp ../shared/data/top-packages.json dist/data/ && bun -e \"const fs=require('fs');const f='dist/index.js';let c=fs.readFileSync(f,'utf-8');c=c.replace(/^#!.*\\n/,'');fs.writeFileSync(f,'#!/usr/bin/env node\\n'+c)\"",
     "prepublishOnly": "bun run build",
     "dev": "bun run src/index.ts",
     "test": "vitest run"
   },
   "dependencies": {
-    "commander": "^13.0.0"
+    "commander": "^13.0.0",
+    "better-sqlite3": "^11.0.0"
   },
   "keywords": ["security", "supply-chain", "npm", "cli", "ai", "ward", "malware", "typosquat"],
   "license": "MIT",
@@ -23,6 +24,7 @@
   },
   "homepage": "https://github.com/Vanguard-Defense-Solutions/ward",
   "engines": {
+    "node": ">=18.0.0",
     "bun": ">=1.0.0"
   }
 }

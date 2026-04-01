@@ -1,13 +1,13 @@
-import { Database } from 'bun:sqlite';
+import { openDatabase, type SQLiteDB } from './sqlite-compat';
 import type { Signal, ThreatEntry } from '../types';
 
 export class ThreatDB {
-  private db: Database;
+  private db: SQLiteDB;
 
   constructor(dbPath: string) {
-    this.db = new Database(dbPath);
-    this.db.run('PRAGMA journal_mode = WAL');
-    this.db.run('PRAGMA busy_timeout = 5000');
+    this.db = openDatabase(dbPath);
+    this.db.prepare('PRAGMA journal_mode = WAL').run();
+    this.db.prepare('PRAGMA busy_timeout = 5000').run();
     this.migrate();
   }
 
@@ -106,15 +106,7 @@ export class ThreatDB {
   }
 
   getPragma(name: string): string {
-    // Validate pragma name to prevent SQL injection
-    if (!/^[a-z_]+$/.test(name)) {
-      throw new Error(`Invalid pragma name: ${name}`);
-    }
-    const result = this.db.query(`PRAGMA ${name}`).get() as Record<string, unknown> | null;
-    if (result) {
-      return String(Object.values(result)[0]);
-    }
-    return '';
+    return this.db.getPragma(name);
   }
 
   listTables(): string[] {
