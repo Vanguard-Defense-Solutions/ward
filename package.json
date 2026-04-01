@@ -1,18 +1,24 @@
 {
   "name": "ward-monorepo",
   "private": true,
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
     "test:unit": "vitest run --reporter=verbose --testPathPattern=unit",
     "test:e2e": "vitest run --reporter=verbose --testPathPattern=e2e",
+    "test:bdd": "bun node_modules/@cucumber/cucumber/bin/cucumber.js",
+    "test:all": "bun test && bun run test:bdd",
     "build": "bun run --filter '*' build",
     "lint": "tsc --noEmit",
     "dev:api": "bun run --filter @ward/api dev"
   },
   "devDependencies": {
+    "@cucumber/cucumber": "^12.7.0",
     "@types/node": "^22.0.0",
+    "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
     "typescript": "^5.7.0",
     "vitest": "^3.0.0",

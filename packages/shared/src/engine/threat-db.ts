@@ -45,6 +45,7 @@ export class ThreatDB {
       severity: 'critical',
       message: row.description,
       safeVersion: row.safe_version ?? undefined,
+      details: { threatType: row.threat_type },
     };
   }
 

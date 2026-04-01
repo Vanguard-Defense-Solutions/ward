@@ -77,7 +77,8 @@ export function formatVerdictClinical(verdict: Verdict, opts: VerdictDisplayOpti
   const pkg = opts.packageName && opts.packageVersion
     ? `${opts.packageName}@${opts.packageVersion}`
     : 'unknown';
-  const threatType = verdict.signals.length > 0 ? verdict.signals[0].type : 'none';
+  const firstSignal = verdict.signals.length > 0 ? verdict.signals[0] : null;
+  const threatType = firstSignal?.details?.threatType ?? firstSignal?.type ?? 'none';
   const safeStr = verdict.safeVersion ? ` — Safe: ${verdict.safeVersion}` : '';
   return `${pkg} — ${threatType} — ${verdict.action}${safeStr}`;
 }
@@ -108,7 +109,7 @@ export function formatVerdictJson(verdict: Verdict): string {
 
 export function formatScanResult(results: { total: number; blocked: number; warned: number; clean: number; verdicts: Verdict[] }, json: boolean): string {
   if (json) {
-    return JSON.stringify({ total: results.total, blocked: results.blocked, warned: results.warned, clean: results.clean, verdicts: results.verdicts });
+    return JSON.stringify({ total: results.total, blocked: results.blocked, warnings: results.warned, clean: results.clean, verdicts: results.verdicts });
   }
 
   const lines: string[] = [];
@@ -118,8 +119,10 @@ export function formatScanResult(results: { total: number; blocked: number; warn
     }
   }
 
-  if (results.blocked === 0 && results.warned === 0) {
-    lines.push(colors.green(`✓ All clear — ${results.total} dependencies checked`));
+  if (results.total === 0) {
+    lines.push(colors.dim('No dependencies found.'));
+  } else if (results.blocked === 0 && results.warned === 0) {
+    lines.push(colors.green(`✓ All clear. ${results.total} deps checked, 0 issues.`));
   } else {
     lines.push(colors.dim(`${results.total} checked, ${results.blocked} blocked, ${results.warned} warned`));
   }
