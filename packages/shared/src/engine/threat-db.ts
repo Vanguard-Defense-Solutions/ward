@@ -76,6 +76,22 @@ export class ThreatDB {
     return row.count;
   }
 
+  /** Return all threats, ordered by detected_at descending. */
+  all(options?: { limit?: number }): ThreatEntry[] {
+    let sql = 'SELECT * FROM threats ORDER BY detected_at DESC';
+    if (options?.limit && options.limit > 0) {
+      sql += ` LIMIT ${Math.floor(options.limit)}`;
+    }
+    return this.db.prepare(sql).all() as ThreatEntry[];
+  }
+
+  /** Return threats detected after the given ISO timestamp. */
+  since(timestamp: string): ThreatEntry[] {
+    return this.db
+      .prepare('SELECT * FROM threats WHERE detected_at > ? ORDER BY detected_at DESC')
+      .all(timestamp) as ThreatEntry[];
+  }
+
   setLastSync(timestamp: string): void {
     this.db
       .prepare('INSERT OR REPLACE INTO metadata (key, value) VALUES (?, ?)')

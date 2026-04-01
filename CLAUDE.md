@@ -14,6 +14,7 @@
 Monorepo with bun workspaces:
 - `packages/shared/` — types, local engine, threat DB, scoring
 - `packages/cli/` — CLI commands, PM hooks, user-facing output
+- `packages/api/` — Phase 1b cloud API (Hono), serves /check, /sync, /score, /threats
 
 ### Test patterns
 - Tests live next to source: `src/engine/threat-db.test.ts`
