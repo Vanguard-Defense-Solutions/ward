@@ -31,8 +31,10 @@ export function createApp(deps: AppDeps) {
 
   // -- Middleware --
 
-  // CORS
-  app.use('*', cors());
+  // CORS — restrict to known origins (add production domain when deployed)
+  app.use('*', cors({
+    origin: ['https://wardshield.dev', 'http://localhost:3000', 'http://localhost:5173'],
+  }));
 
   // Rate limiting
   app.use('*', rateLimiter.middleware());

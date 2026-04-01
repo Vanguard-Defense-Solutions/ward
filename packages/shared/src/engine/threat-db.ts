@@ -79,11 +79,12 @@ export class ThreatDB {
 
   /** Return all threats, ordered by detected_at descending. */
   all(options?: { limit?: number }): ThreatEntry[] {
-    let sql = 'SELECT * FROM threats ORDER BY detected_at DESC';
-    if (options?.limit && options.limit > 0) {
-      sql += ` LIMIT ${Math.floor(options.limit)}`;
+    if (options?.limit && Number.isFinite(options.limit) && options.limit > 0) {
+      return this.db.prepare('SELECT * FROM threats ORDER BY detected_at DESC LIMIT ?')
+        .all(Math.floor(options.limit)) as ThreatEntry[];
     }
-    return this.db.prepare(sql).all() as ThreatEntry[];
+    return this.db.prepare('SELECT * FROM threats ORDER BY detected_at DESC')
+      .all() as ThreatEntry[];
   }
 
   /** Return threats detected after the given ISO timestamp. */

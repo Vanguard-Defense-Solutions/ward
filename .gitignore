@@ -3,7 +3,11 @@ dist/
 *.db
 *.db-wal
 *.db-shm
+*.key
 .wardrc
 .env
+.env.*
+!.env.example
 coverage/
 reports/
+.gstack/

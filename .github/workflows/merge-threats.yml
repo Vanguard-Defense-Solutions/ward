@@ -14,11 +14,11 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: oven-sh/setup-bun@v2
+      - uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe0 # v2
         with:
           bun-version: latest
 
@@ -39,13 +39,15 @@ jobs:
 
       - name: Merge submissions into seed-threats.json
         if: steps.find-files.outputs.skip == 'false'
+        env:
+          SUBMISSION_FILES: ${{ steps.find-files.outputs.files }}
         run: |
           bun run -e "
           import { parse } from 'yaml';
           import { readFileSync, writeFileSync, mkdirSync, renameSync } from 'fs';
           import { basename } from 'path';
 
-          const files = '${{ steps.find-files.outputs.files }}'.trim().split(/\s+/).filter(Boolean);
+          const files = (process.env.SUBMISSION_FILES || '').trim().split(/\s+/).filter(Boolean);
           const seedPath = 'packages/shared/data/seed-threats.json';
           const seed = JSON.parse(readFileSync(seedPath, 'utf8'));
 
