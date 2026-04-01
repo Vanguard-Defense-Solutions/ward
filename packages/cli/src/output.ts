@@ -127,11 +127,18 @@ export function formatScanResult(results: { total: number; blocked: number; warn
   return lines.join('\n');
 }
 
-export function formatInitSuccess(json: boolean): string {
+export function formatInitSuccess(json: boolean, packageManagers?: string[]): string {
+  const pmSuffix = packageManagers && packageManagers.length > 0
+    ? ` (${packageManagers.join(' + ')})`
+    : '';
   if (json) {
-    return JSON.stringify({ success: true, message: 'Ward initialized' });
+    return JSON.stringify({
+      success: true,
+      message: `Ward initialized${pmSuffix}`,
+      ...(packageManagers ? { packageManagers } : {}),
+    });
   }
-  return colors.green('✓ Ward initialized');
+  return colors.green(`✓ Ward initialized${pmSuffix}`);
 }
 
 export function formatStatus(status: { initialized: boolean; dbAge: string | null; threatCount: number; sensitivity: string }, json: boolean): string {

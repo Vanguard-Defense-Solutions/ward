@@ -122,6 +122,26 @@ describe('Output Formatting', () => {
       const parsed = JSON.parse(result);
       expect(parsed.success).toBe(true);
     });
+
+    it('includes package manager names in text output', () => {
+      const result = formatInitSuccess(false, ['npm', 'bun']);
+      expect(result).toContain('Ward initialized');
+      expect(result).toContain('npm + bun');
+    });
+
+    it('includes package manager names in JSON output', () => {
+      const result = formatInitSuccess(true, ['npm', 'bun']);
+      const parsed = JSON.parse(result);
+      expect(parsed.success).toBe(true);
+      expect(parsed.message).toContain('npm + bun');
+      expect(parsed.packageManagers).toEqual(['npm', 'bun']);
+    });
+
+    it('shows single PM without plus sign', () => {
+      const result = formatInitSuccess(false, ['npm']);
+      expect(result).toContain('(npm)');
+      expect(result).not.toContain('+');
+    });
   });
 
   describe('formatStatus', () => {
