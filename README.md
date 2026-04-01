@@ -3,7 +3,8 @@
 [![Warded](https://img.shields.io/badge/supply%20chain-Warded-blue?logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBkPSJNOCAxbC02IDN2NGMwIDQuNCAyLjYgOC41IDYgOS45IDMuNC0xLjQgNi01LjUgNi05Ljl2LTR6IiBmaWxsPSIjM2I4MmY2Ii8+PC9zdmc+)](https://github.com/Vanguard-Defense-Solutions/ward)
 [![MIT License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![npm](https://img.shields.io/npm/v/wardshield)](https://www.npmjs.com/package/wardshield)
-[![Tests](https://img.shields.io/badge/tests-271%20passing-brightgreen)]()
+[![Tests](https://img.shields.io/badge/tests-286%20passing-brightgreen)]()
+[![Threat Feed](https://img.shields.io/badge/threat%20feed-live-red)](https://wardshield.com)
 
 **Supply chain defense for AI-assisted developers.**
 
@@ -14,7 +15,8 @@ On March 31, 2026, `axios@1.14.1` was published to npm with a hidden RAT that st
 ## Install
 
 ```bash
-bun install -g wardshield
+npm install -g wardshield    # Node.js
+bun install -g wardshield    # bun
 ward init
 ```
 
@@ -46,14 +48,22 @@ Ward checks every package you install against four detection layers:
 
 Checks run locally in <200ms. No cloud required. No account required. Just protection.
 
+Ships with 42 verified real-world attacks (2018-2026). Browse them at [wardshield.com](https://wardshield.com).
+
 ## How it works
 
 Ward uses a **split intelligence** model:
 
 - A **local engine** handles fast checks (threat DB lookup, typosquat detection, install script flagging) — works offline, adds <200ms to installs
-- A **cloud API** (optional) handles deep analysis — behavioral sandboxing, AI-powered code review, maintainer reputation scoring
+- A **cloud API** at [api.wardshield.com](https://api.wardshield.com/health) handles deep analysis — behavioral sandboxing, AI-powered code review, maintainer reputation scoring
 
 The local engine covers 95%+ of installs. The cloud is only called for packages Ward can't resolve locally.
+
+**Cloud API endpoints:**
+- `GET` [/threats](https://api.wardshield.com/threats) — public threat feed (JSON)
+- `POST` [/check](https://api.wardshield.com/check) — check a package
+- `GET` [/sync](https://api.wardshield.com/sync) — Ed25519-signed threat DB sync
+- `GET` [/score/:package](https://api.wardshield.com/score/axios) — package trust score
 
 ## Output modes
 
@@ -94,6 +104,11 @@ Ward's cloud dashboard (coming soon) adds:
 ## Built by Vanguard Defense Solutions
 
 Ward is built by [Vanguard Defense Solutions](https://vanguarddefensesolutions.com) — supply chain defense from people who do defense for a living.
+
+- [wardshield.com](https://wardshield.com) — live threat feed
+- [GitHub](https://github.com/Vanguard-Defense-Solutions/ward) — source code
+- [npm](https://www.npmjs.com/package/wardshield) — package
+- [API](https://api.wardshield.com/health) — cloud endpoints
 
 ## Badge
 
