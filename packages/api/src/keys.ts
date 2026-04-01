@@ -9,9 +9,20 @@ export interface KeyPair {
   privateKey: Uint8Array;
 }
 
+/**
+ * Resolve key file paths. Environment variables take precedence over defaults.
+ *
+ * - WARD_PUBLIC_KEY_PATH  → absolute path to the public key file
+ * - WARD_PRIVATE_KEY_PATH → absolute path to the private key file
+ */
+export function resolveKeyPaths(): { pubPath: string; privPath: string } {
+  const pubPath = process.env.WARD_PUBLIC_KEY_PATH || path.join(DATA_DIR, 'public.key');
+  const privPath = process.env.WARD_PRIVATE_KEY_PATH || path.join(DATA_DIR, 'private.key');
+  return { pubPath, privPath };
+}
+
 export async function loadOrCreateKeyPair(): Promise<KeyPair> {
-  const pubPath = path.join(DATA_DIR, 'public.key');
-  const privPath = path.join(DATA_DIR, 'private.key');
+  const { pubPath, privPath } = resolveKeyPaths();
 
   if (fs.existsSync(pubPath) && fs.existsSync(privPath)) {
     return {
@@ -20,7 +31,9 @@ export async function loadOrCreateKeyPair(): Promise<KeyPair> {
     };
   }
 
-  fs.mkdirSync(DATA_DIR, { recursive: true });
+  // Auto-generate keys only when using default data directory
+  const dir = path.dirname(privPath);
+  fs.mkdirSync(dir, { recursive: true });
   const keys = await generateKeyPair();
   fs.writeFileSync(pubPath, Buffer.from(keys.publicKey));
   fs.writeFileSync(privPath, Buffer.from(keys.privateKey));
