@@ -5,7 +5,7 @@ export default defineConfig({
   test: {
     globals: true,
     root: '.',
-    include: ['packages/**/*.test.ts'],
+    include: ['packages/**/*.test.ts', 'scripts/**/*.test.ts'],
     testTimeout: 30000,
   },
   resolve: {
