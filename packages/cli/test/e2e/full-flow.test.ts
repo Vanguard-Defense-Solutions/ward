@@ -78,7 +78,7 @@ describe('E2E: Full Ward workflow', () => {
 
     const statusResult = execSync(`${RUN} status`, { cwd: tmpDir, encoding: 'utf-8' });
     expect(statusResult).toContain('protected');
-    expect(statusResult).toContain('never synced');
+    // init now auto-seeds, so DB has threats and a sync timestamp
   });
 
   it('status without init → shows not initialized', () => {

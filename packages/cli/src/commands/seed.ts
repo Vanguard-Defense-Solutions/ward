@@ -3,7 +3,7 @@ import path from 'path';
 import { findProjectRoot, dbPath, wardDataDir } from '../config';
 import { ThreatDB } from '@ward/shared';
 
-export function seedCommand(options: { json?: boolean } = {}): void {
+export function seedCommand(options: { json?: boolean; silent?: boolean } = {}): void {
   const projectDir = findProjectRoot(process.cwd());
 
   if (!projectDir) {
@@ -47,9 +47,11 @@ export function seedCommand(options: { json?: boolean } = {}): void {
 
   const added = after - before;
 
-  if (options.json) {
-    console.log(JSON.stringify({ total: after, added, existing: before }));
-  } else {
-    console.log(`✓ Threat database seeded: ${after} threats (${added} new)`);
+  if (!options.silent) {
+    if (options.json) {
+      console.log(JSON.stringify({ total: after, added, existing: before }));
+    } else {
+      console.log(`✓ Threat database seeded: ${after} threats (${added} new)`);
+    }
   }
 }

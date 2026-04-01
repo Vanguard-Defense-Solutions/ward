@@ -1,7 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import { saveConfig, wardDataDir } from '../config';
+import { saveConfig, wardDataDir, dbPath } from '../config';
 import { formatInitSuccess } from '../output';
+import { seedCommand } from './seed';
 
 function setupNpmrc(projectDir: string): void {
   const npmrcPath = path.join(projectDir, '.npmrc');
@@ -54,6 +55,12 @@ export function initCommand(options: { json?: boolean } = {}): void {
 
   // Add preinstall hook to package.json
   setupPreinstallHook(projectDir);
+
+  // Auto-seed threat DB if empty
+  const db = dbPath(projectDir);
+  if (!fs.existsSync(db) || fs.statSync(db).size === 0) {
+    seedCommand({ silent: true });
+  }
 
   console.log(formatInitSuccess(!!options.json));
 }
