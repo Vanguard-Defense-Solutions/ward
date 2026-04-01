@@ -1,0 +1,14 @@
+# Threat Submission
+package_name: ""
+version: ""
+threat_type: ""  # malicious-code | credential-theft | cryptominer | backdoor | typosquat
+description: ""  # Plain English, what does it do? Under 200 chars.
+safe_version: ""  # Last safe version, or "none" if always malicious
+detected_at: ""  # ISO 8601 date
+
+# Evidence (at least one required)
+references:
+  - url: ""  # Link to advisory, blog post, or GitHub issue
+
+# Submitter
+submitted_by: ""  # Your GitHub username

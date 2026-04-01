@@ -1,0 +1,102 @@
+name: Validate Threat Submission
+
+on:
+  pull_request:
+    paths:
+      - 'threats/submissions/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Find new/modified threat submissions
+        id: find-files
+        run: |
+          FILES=$(git diff --name-only --diff-filter=ACMR origin/${{ github.base_ref }}...HEAD -- 'threats/submissions/*.yml' | tr '\n' ' ')
+          echo "files=$FILES" >> "$GITHUB_OUTPUT"
+          if [ -z "$FILES" ]; then
+            echo "No threat submission YAML files found in this PR."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Validate submissions
+        if: steps.find-files.outputs.skip == 'false'
+        id: validate
+        run: |
+          RESULTS=""
+          OVERALL_PASS=true
+          for file in ${{ steps.find-files.outputs.files }}; do
+            OUTPUT=$(bun run scripts/validate-threat.ts "$file" 2>&1)
+            EXIT_CODE=$?
+            RESULTS="${RESULTS}\n### \`${file}\`\n\n${OUTPUT}\n"
+            if [ $EXIT_CODE -ne 0 ]; then
+              OVERALL_PASS=false
+            fi
+          done
+
+          # Write results to file for the comment step
+          echo -e "$RESULTS" > /tmp/validation-results.md
+
+          if [ "$OVERALL_PASS" = false ]; then
+            echo "pass=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "pass=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Comment on PR
+        if: steps.find-files.outputs.skip == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const results = fs.readFileSync('/tmp/validation-results.md', 'utf8');
+            const pass = '${{ steps.validate.outputs.pass }}' === 'true';
+            const icon = pass ? ':white_check_mark:' : ':x:';
+            const status = pass ? 'All checks passed' : 'Validation failed — please fix the issues below';
+
+            const body = `## ${icon} Threat Submission Validation\n\n**${status}**\n\n${results}`;
+
+            // Find existing bot comment to update
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const botComment = comments.find(c =>
+              c.user.type === 'Bot' && c.body.includes('Threat Submission Validation')
+            );
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
+
+      - name: Fail if validation failed
+        if: steps.validate.outputs.pass == 'false'
+        run: exit 1

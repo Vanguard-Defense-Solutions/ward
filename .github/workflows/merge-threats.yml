@@ -1,0 +1,105 @@
+name: Merge Threat Submissions
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'threats/submissions/**'
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Find submission files
+        id: find-files
+        run: |
+          FILES=$(find threats/submissions -name '*.yml' -not -name '.gitkeep' | tr '\n' ' ')
+          echo "files=$FILES" >> "$GITHUB_OUTPUT"
+          if [ -z "$FILES" ]; then
+            echo "No submission files to process."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Merge submissions into seed-threats.json
+        if: steps.find-files.outputs.skip == 'false'
+        run: |
+          bun run -e "
+          import { parse } from 'yaml';
+          import { readFileSync, writeFileSync, mkdirSync, renameSync } from 'fs';
+          import { basename } from 'path';
+
+          const files = '${{ steps.find-files.outputs.files }}'.trim().split(/\s+/).filter(Boolean);
+          const seedPath = 'packages/shared/data/seed-threats.json';
+          const seed = JSON.parse(readFileSync(seedPath, 'utf8'));
+
+          const existing = new Set(seed.map(e => \`\${e.package_name}@\${e.version}\`));
+          let added = 0;
+
+          for (const file of files) {
+            const content = readFileSync(file, 'utf8');
+            const data = parse(content);
+
+            const key = \`\${data.package_name}@\${data.version}\`;
+            if (existing.has(key)) {
+              console.log(\`Skipping duplicate: \${key}\`);
+              continue;
+            }
+
+            seed.push({
+              package_name: data.package_name,
+              version: data.version,
+              threat_type: data.threat_type,
+              description: data.description,
+              safe_version: data.safe_version || undefined,
+              detected_at: data.detected_at,
+            });
+            existing.add(key);
+            added++;
+          }
+
+          writeFileSync(seedPath, JSON.stringify(seed, null, 2) + '\n');
+          console.log(\`Added \${added} new threat(s) to seed-threats.json\`);
+
+          // Move processed files to archived/
+          mkdirSync('threats/archived', { recursive: true });
+          for (const file of files) {
+            const dest = 'threats/archived/' + basename(file);
+            renameSync(file, dest);
+            console.log(\`Archived: \${file} -> \${dest}\`);
+          }
+          "
+
+      - name: Commit updated seed file
+        if: steps.find-files.outputs.skip == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add packages/shared/data/seed-threats.json
+          git commit -m "chore: merge community threat submissions into seed-threats.json"
+
+      - name: Commit archived submissions
+        if: steps.find-files.outputs.skip == 'false'
+        run: |
+          git add threats/submissions/ threats/archived/
+          git commit -m "chore: archive processed threat submissions"
+
+      - name: Push changes
+        if: steps.find-files.outputs.skip == 'false'
+        run: git push
