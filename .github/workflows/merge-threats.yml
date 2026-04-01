@@ -14,11 +14,11 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe0 # v2
+      - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
 

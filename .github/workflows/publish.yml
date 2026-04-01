@@ -14,9 +14,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+      - uses: actions/checkout@v4
 
-      - uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe0 # v2
+      - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
 
@@ -32,7 +32,7 @@ jobs:
       - name: Build CLI package
         run: cd packages/cli && bun run build
 
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+      - uses: actions/setup-node@v4.4.0
         with:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
