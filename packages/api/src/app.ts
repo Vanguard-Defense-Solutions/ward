@@ -5,6 +5,7 @@ import { LocalEngine } from '@ward/shared/engine/index';
 import { sign } from '@ward/shared/engine/db-signer';
 import type { ThreatEntry } from '@ward/shared/types';
 import { RateLimiter } from './rate-limit';
+import { renderThreatFeed } from './threat-feed';
 import type { KeyPair } from './keys';
 
 export interface AppDeps {
@@ -48,6 +49,17 @@ export function createApp(deps: AppDeps) {
   });
 
   // -- Routes --
+
+  // GET / — threat feed HTML page
+  app.get('/', (c) => {
+    const accept = c.req.header('accept') || '';
+    if (accept.includes('text/html') || !accept.includes('application/json')) {
+      const threats = db.all();
+      return c.html(renderThreatFeed(threats));
+    }
+    // API clients get JSON
+    return c.json({ status: 'ok', version: '0.3.0', threats: db.count() });
+  });
 
   // GET /health
   app.get('/health', (c) => {
