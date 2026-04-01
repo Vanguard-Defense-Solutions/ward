@@ -56,9 +56,9 @@ program
   .description(false as any) // Hidden command — invoked by npm preinstall hook
   .argument('[packages...]', 'Packages to check')
   .option('--json', 'Output as JSON')
-  .action((packages, opts) => {
+  .action(async (packages, opts) => {
     const globalOpts = program.opts();
-    checkInstallCommand({ ...opts, ...globalOpts, packages });
+    await checkInstallCommand({ ...opts, ...globalOpts, packages });
   });
 
 program.parse();

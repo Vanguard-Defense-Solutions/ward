@@ -3,6 +3,7 @@ import path from 'path';
 import { findProjectRoot, loadConfig, dbPath } from '../config';
 import { loadTopPackages } from '../top-packages';
 import { formatVerdict, formatVerdictJson, formatVerdictClinical, formatVerdictVerbose } from '../output';
+import { confirm } from '../prompt';
 import { LocalEngine } from '@ward/shared';
 
 /**
@@ -10,7 +11,7 @@ import { LocalEngine } from '@ward/shared';
  * Reads pending package installs from npm's environment and checks each one.
  * Exits 0 to allow install, exits 1 to block.
  */
-export function checkInstallCommand(options: { json?: boolean; clinical?: boolean; verbose?: boolean; packages?: string[] } = {}): void {
+export async function checkInstallCommand(options: { json?: boolean; clinical?: boolean; verbose?: boolean; packages?: string[] } = {}): Promise<void> {
   const projectDir = findProjectRoot(process.cwd());
   if (!projectDir) process.exit(0); // Can't find project — don't block
 
@@ -73,6 +74,11 @@ export function checkInstallCommand(options: { json?: boolean; clinical?: boolea
 
     if (verdict.action === 'block') {
       blocked = true;
+    } else if (verdict.action === 'warn' && !options.json) {
+      const proceed = await confirm('  Proceed anyway?');
+      if (!proceed) {
+        blocked = true;
+      }
     }
   }
 
