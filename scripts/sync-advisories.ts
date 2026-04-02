@@ -34,7 +34,7 @@ interface ThreatEntry {
 // --- Constants ---
 
 const ADVISORY_API_URL =
-  'https://api.github.com/advisories?ecosystem=npm&severity=critical,high&per_page=100';
+  'https://api.github.com/advisories?ecosystem=npm&severity=critical&severity=high&per_page=100';
 
 const SEED_THREATS_PATH = resolve(
   import.meta.dir ?? __dirname,
