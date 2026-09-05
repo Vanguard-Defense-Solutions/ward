@@ -1,44 +1,1050 @@
 [
-  {"package_name":"axios","version":"1.14.1","threat_type":"backdoor","description":"Maintainer account hijacked. Drops a cross-platform RAT via hidden plain-crypto-js dependency that steals SSH keys, cloud tokens, and credentials","safe_version":"1.14.0","detected_at":"2026-03-30T00:00:00Z"},
-  {"package_name":"axios","version":"0.30.4","threat_type":"backdoor","description":"Same hijacked account. Identical RAT dropper targeting the legacy 0.x branch. Steals SSH keys and cloud credentials","safe_version":"0.30.3","detected_at":"2026-03-30T00:00:00Z"},
-  {"package_name":"plain-crypto-js","version":"4.2.1","threat_type":"malicious-code","description":"Purpose-built RAT dropper staged for the axios attack. Postinstall script delivers OS-specific payloads that steal credentials and phone home to C2","safe_version":"none","detected_at":"2026-03-30T00:00:00Z"},
-  {"package_name":"@solana/web3.js","version":"1.95.6","threat_type":"credential-theft","description":"Account compromised via phishing. Exfiltrates Solana private keys through fake CloudFlare headers. $184K in crypto stolen","safe_version":"1.95.5","detected_at":"2024-12-03T00:00:00Z"},
-  {"package_name":"@solana/web3.js","version":"1.95.7","threat_type":"credential-theft","description":"Second compromised version from same account takeover. Same private key exfiltration backdoor","safe_version":"1.95.5","detected_at":"2024-12-03T00:00:00Z"},
-  {"package_name":"event-stream","version":"3.3.6","threat_type":"backdoor","description":"Attacker gained maintainer access via social engineering. Added flatmap-stream with encrypted payload targeting Bitpay Copay Bitcoin wallet","safe_version":"3.3.5","detected_at":"2018-11-26T00:00:00Z"},
-  {"package_name":"flatmap-stream","version":"0.1.1","threat_type":"backdoor","description":"Purpose-built payload for the event-stream attack. Uses Copay app description as AES256 decryption key to activate Bitcoin wallet theft","safe_version":"none","detected_at":"2018-11-26T00:00:00Z"},
-  {"package_name":"colors","version":"1.4.1","threat_type":"malicious-code","description":"Maintainer sabotage. Infinite loop printing LIBERTY and Zalgo text, breaking all 19,000+ dependent applications","safe_version":"1.4.0","detected_at":"2022-01-08T00:00:00Z"},
-  {"package_name":"colors","version":"1.4.44-liberty-2","threat_type":"malicious-code","description":"Additional sabotage release. Same infinite loop payload","safe_version":"1.4.0","detected_at":"2022-01-08T00:00:00Z"},
-  {"package_name":"faker","version":"6.6.6","threat_type":"malicious-code","description":"Maintainer sabotage. All code gutted and replaced with empty shell. Use @faker-js/faker as the community fork replacement","safe_version":"5.5.3","detected_at":"2022-01-05T00:00:00Z"},
-  {"package_name":"ua-parser-js","version":"0.7.29","threat_type":"cryptominer","description":"Account hijacked. Injects XMRig Monero miner on Linux and credential-stealing trojan on Windows that harvests passwords from browsers and email clients","safe_version":"0.7.28","detected_at":"2021-10-22T00:00:00Z"},
-  {"package_name":"ua-parser-js","version":"0.8.0","threat_type":"cryptominer","description":"Same hijack. Identical cryptominer and credential stealer published to unused version range","safe_version":"none","detected_at":"2021-10-22T00:00:00Z"},
-  {"package_name":"ua-parser-js","version":"1.0.0","threat_type":"cryptominer","description":"Third malicious version from same hijack. Same payload across three version ranges to maximize blast radius","safe_version":"none","detected_at":"2021-10-22T00:00:00Z"},
-  {"package_name":"coa","version":"2.0.3","threat_type":"credential-theft","description":"Account compromised. Postinstall downloads OS-specific payloads that steal browser passwords, credit cards, screenshots, and keystrokes","safe_version":"2.0.2","detected_at":"2021-11-04T00:00:00Z"},
-  {"package_name":"rc","version":"1.2.9","threat_type":"credential-theft","description":"Same attacker as coa hijack. Identical password-stealing malware. Package has 14M weekly downloads","safe_version":"1.2.8","detected_at":"2021-11-04T00:00:00Z"},
-  {"package_name":"@lottiefiles/lottie-player","version":"2.0.5","threat_type":"credential-theft","description":"Account phished. Injected crypto wallet drainer popup. At least one victim lost $723K in Bitcoin","safe_version":"2.0.4","detected_at":"2024-10-30T00:00:00Z"},
-  {"package_name":"@lottiefiles/lottie-player","version":"2.0.6","threat_type":"credential-theft","description":"Second malicious version from same phishing attack. Same wallet drainer. CDN users auto-served compromised release","safe_version":"2.0.4","detected_at":"2024-10-30T00:00:00Z"},
-  {"package_name":"@lottiefiles/lottie-player","version":"2.0.7","threat_type":"credential-theft","description":"Third malicious version. Three compromised releases within one hour. Upgrade to 2.0.8","safe_version":"2.0.4","detected_at":"2024-10-30T00:00:00Z"},
-  {"package_name":"@rspack/core","version":"1.1.7","threat_type":"cryptominer","description":"Published via stolen npm tokens. Hides XMRig Monero miner in support.js","safe_version":"1.1.6","detected_at":"2024-12-19T00:00:00Z"},
-  {"package_name":"@rspack/cli","version":"1.1.7","threat_type":"cryptominer","description":"Companion to rspack/core compromise. Same stolen token, same XMRig miner payload","safe_version":"1.1.6","detected_at":"2024-12-19T00:00:00Z"},
-  {"package_name":"vant","version":"4.9.14","threat_type":"cryptominer","description":"Stolen npm tokens. XMRig miner hidden as /tmp/vant_helper. Multiple versions affected across three major branches","safe_version":"4.9.10","detected_at":"2024-12-19T00:00:00Z"},
-  {"package_name":"vant","version":"4.9.11","threat_type":"cryptominer","description":"Earlier compromised version in the vant cryptominer campaign","safe_version":"4.9.10","detected_at":"2024-12-19T00:00:00Z"},
-  {"package_name":"@0xengine/xmlrpc","version":"1.3.4","threat_type":"cryptominer","description":"Legitimate package turned malicious. Harvests SSH keys, bash history, and env vars every 12 hours. Deploys XMRig miner via systemd. Active for over a year","safe_version":"1.3.3","detected_at":"2024-11-01T00:00:00Z"},
-  {"package_name":"@ctrl/tinycolor","version":"4.1.1","threat_type":"malicious-code","description":"Shai-Hulud self-replicating worm. Runs TruffleHog to scan for secrets, steals npm/GitHub/AWS tokens, injects rogue GitHub Actions to spread","safe_version":"4.1.0","detected_at":"2025-09-15T00:00:00Z"},
-  {"package_name":"@ctrl/tinycolor","version":"4.1.2","threat_type":"malicious-code","description":"Second Shai-Hulud worm release. Same credential-stealing and self-propagating payload","safe_version":"4.1.0","detected_at":"2025-09-15T00:00:00Z"},
-  {"package_name":"ngx-bootstrap","version":"18.1.4","threat_type":"malicious-code","description":"Shai-Hulud worm victim. Postinstall steals secrets via TruffleHog and propagates to other packages","safe_version":"18.1.3","detected_at":"2025-09-15T00:00:00Z"},
-  {"package_name":"ngx-bootstrap","version":"20.0.5","threat_type":"malicious-code","description":"Later Shai-Hulud release across the 20.x branch. Same credential exfiltration and worm propagation","safe_version":"20.0.2","detected_at":"2025-09-15T00:00:00Z"},
-  {"package_name":"ng2-file-upload","version":"9.0.1","threat_type":"malicious-code","description":"Shai-Hulud worm. Steals npm tokens, GitHub PATs, and cloud credentials, then spreads to more packages","safe_version":"9.0.0","detected_at":"2025-09-15T00:00:00Z"},
-  {"package_name":"angulartics2","version":"14.1.2","threat_type":"malicious-code","description":"Shai-Hulud worm victim. Exfiltrates GITHUB_TOKEN, NPM_TOKEN, AWS_ACCESS_KEY_ID to attacker webhooks","safe_version":"14.1.0","detected_at":"2025-09-15T00:00:00Z"},
-  {"package_name":"ngx-toastr","version":"19.0.1","threat_type":"malicious-code","description":"Shai-Hulud worm propagation. Malicious preinstall scripts scan for and exfiltrate secrets","safe_version":"19.0.0","detected_at":"2025-09-15T00:00:00Z"},
-  {"package_name":"nx","version":"21.5.0","threat_type":"credential-theft","description":"S1ngularity attack via GitHub Actions injection. Deploys QUIETVAULT stealer that harvests tokens, keys, and secrets","safe_version":"21.4.0","detected_at":"2025-08-26T00:00:00Z"},
-  {"package_name":"nx","version":"20.9.0","threat_type":"credential-theft","description":"S1ngularity attack targeting legacy branch. Same QUIETVAULT stealer. Attacker gained full AWS admin access at a victim org within 72 hours","safe_version":"20.8.0","detected_at":"2025-08-26T00:00:00Z"},
-  {"package_name":"rand-user-agent","version":"2.0.84","threat_type":"backdoor","description":"Deprecated package hijacked. RAT establishes C2 connection for shell commands, file upload, and recon. Persists after downgrading","safe_version":"2.0.82","detected_at":"2025-05-05T00:00:00Z"},
-  {"package_name":"rand-user-agent","version":"1.0.110","threat_type":"backdoor","description":"Same hijack, 1.x branch. Same RAT payload. Full system scan required — downgrading does not remove the RAT","safe_version":"1.0.109","detected_at":"2025-05-05T00:00:00Z"},
-  {"package_name":"ethers-provider2","version":"1.0.0","threat_type":"backdoor","description":"Typosquat of ethers ecosystem. Patches the legitimate ethers package with a reverse shell backdoor. Uninstalling does NOT remove the backdoor","safe_version":"none","detected_at":"2025-03-15T00:00:00Z"},
-  {"package_name":"ethers-providerz","version":"1.0.0","threat_type":"backdoor","description":"Companion typosquat targeting ethers. Same reverse shell injection into the legitimate ethers library","safe_version":"none","detected_at":"2025-03-15T00:00:00Z"},
-  {"package_name":"claud-code","version":"0.2.1","threat_type":"credential-theft","description":"Typosquat targeting Claude Code users. Self-replicating worm that steals tokens, modifies projects to include itself, and injects rogue MCP servers into AI coding tools","safe_version":"none","detected_at":"2026-02-20T00:00:00Z"},
-  {"package_name":"cloude-code","version":"0.2.1","threat_type":"credential-theft","description":"Another Claude Code typosquat. Same MCP-injection worm that instructs AI assistants to exfiltrate SSH keys and AWS credentials","safe_version":"none","detected_at":"2026-02-20T00:00:00Z"},
-  {"package_name":"rimarf","version":"1.0.0","threat_type":"credential-theft","description":"Typosquat of rimraf. Part of 19-package SANDWORM_MODE campaign stealing credentials and propagating via stolen npm tokens","safe_version":"none","detected_at":"2026-02-20T00:00:00Z"},
-  {"package_name":"hardhta","version":"1.0.0","threat_type":"credential-theft","description":"Typosquat of Hardhat (Ethereum dev framework). Same self-replicating credential theft worm","safe_version":"none","detected_at":"2026-02-20T00:00:00Z"},
-  {"package_name":"node-hide-console-windows","version":"1.0.0","threat_type":"backdoor","description":"Typosquat of node-hide-console-window. Downloads Discord bot that installs r77 rootkit for persistent stealthy access","safe_version":"none","detected_at":"2024-10-31T00:00:00Z"},
-  {"package_name":"@teale.io/eslint-config","version":"1.8.12","threat_type":"credential-theft","description":"CanisterWorm attack. Steals npm auth tokens and launches background process to propagate the worm to all accessible packages","safe_version":"1.8.10","detected_at":"2026-03-20T00:00:00Z"}
+  {
+    "package_name": "axios",
+    "version": "1.14.1",
+    "threat_type": "backdoor",
+    "description": "Maintainer account hijacked. Drops a cross-platform RAT via hidden plain-crypto-js dependency that steals SSH keys, cloud tokens, and credentials",
+    "safe_version": "1.14.0",
+    "detected_at": "2026-03-30T00:00:00Z"
+  },
+  {
+    "package_name": "axios",
+    "version": "0.30.4",
+    "threat_type": "backdoor",
+    "description": "Same hijacked account. Identical RAT dropper targeting the legacy 0.x branch. Steals SSH keys and cloud credentials",
+    "safe_version": "0.30.3",
+    "detected_at": "2026-03-30T00:00:00Z"
+  },
+  {
+    "package_name": "plain-crypto-js",
+    "version": "4.2.1",
+    "threat_type": "malicious-code",
+    "description": "Purpose-built RAT dropper staged for the axios attack. Postinstall script delivers OS-specific payloads that steal credentials and phone home to C2",
+    "safe_version": "none",
+    "detected_at": "2026-03-30T00:00:00Z"
+  },
+  {
+    "package_name": "@solana/web3.js",
+    "version": "1.95.6",
+    "threat_type": "credential-theft",
+    "description": "Account compromised via phishing. Exfiltrates Solana private keys through fake CloudFlare headers. $184K in crypto stolen",
+    "safe_version": "1.95.5",
+    "detected_at": "2024-12-03T00:00:00Z"
+  },
+  {
+    "package_name": "@solana/web3.js",
+    "version": "1.95.7",
+    "threat_type": "credential-theft",
+    "description": "Second compromised version from same account takeover. Same private key exfiltration backdoor",
+    "safe_version": "1.95.5",
+    "detected_at": "2024-12-03T00:00:00Z"
+  },
+  {
+    "package_name": "event-stream",
+    "version": "3.3.6",
+    "threat_type": "backdoor",
+    "description": "Attacker gained maintainer access via social engineering. Added flatmap-stream with encrypted payload targeting Bitpay Copay Bitcoin wallet",
+    "safe_version": "3.3.5",
+    "detected_at": "2018-11-26T00:00:00Z"
+  },
+  {
+    "package_name": "flatmap-stream",
+    "version": "0.1.1",
+    "threat_type": "backdoor",
+    "description": "Purpose-built payload for the event-stream attack. Uses Copay app description as AES256 decryption key to activate Bitcoin wallet theft",
+    "safe_version": "none",
+    "detected_at": "2018-11-26T00:00:00Z"
+  },
+  {
+    "package_name": "colors",
+    "version": "1.4.1",
+    "threat_type": "malicious-code",
+    "description": "Maintainer sabotage. Infinite loop printing LIBERTY and Zalgo text, breaking all 19,000+ dependent applications",
+    "safe_version": "1.4.0",
+    "detected_at": "2022-01-08T00:00:00Z"
+  },
+  {
+    "package_name": "colors",
+    "version": "1.4.44-liberty-2",
+    "threat_type": "malicious-code",
+    "description": "Additional sabotage release. Same infinite loop payload",
+    "safe_version": "1.4.0",
+    "detected_at": "2022-01-08T00:00:00Z"
+  },
+  {
+    "package_name": "faker",
+    "version": "6.6.6",
+    "threat_type": "malicious-code",
+    "description": "Maintainer sabotage. All code gutted and replaced with empty shell. Use @faker-js/faker as the community fork replacement",
+    "safe_version": "5.5.3",
+    "detected_at": "2022-01-05T00:00:00Z"
+  },
+  {
+    "package_name": "ua-parser-js",
+    "version": "0.7.29",
+    "threat_type": "cryptominer",
+    "description": "Account hijacked. Injects XMRig Monero miner on Linux and credential-stealing trojan on Windows that harvests passwords from browsers and email clients",
+    "safe_version": "0.7.28",
+    "detected_at": "2021-10-22T00:00:00Z"
+  },
+  {
+    "package_name": "ua-parser-js",
+    "version": "0.8.0",
+    "threat_type": "cryptominer",
+    "description": "Same hijack. Identical cryptominer and credential stealer published to unused version range",
+    "safe_version": "none",
+    "detected_at": "2021-10-22T00:00:00Z"
+  },
+  {
+    "package_name": "ua-parser-js",
+    "version": "1.0.0",
+    "threat_type": "cryptominer",
+    "description": "Third malicious version from same hijack. Same payload across three version ranges to maximize blast radius",
+    "safe_version": "none",
+    "detected_at": "2021-10-22T00:00:00Z"
+  },
+  {
+    "package_name": "coa",
+    "version": "2.0.3",
+    "threat_type": "credential-theft",
+    "description": "Account compromised. Postinstall downloads OS-specific payloads that steal browser passwords, credit cards, screenshots, and keystrokes",
+    "safe_version": "2.0.2",
+    "detected_at": "2021-11-04T00:00:00Z"
+  },
+  {
+    "package_name": "rc",
+    "version": "1.2.9",
+    "threat_type": "credential-theft",
+    "description": "Same attacker as coa hijack. Identical password-stealing malware. Package has 14M weekly downloads",
+    "safe_version": "1.2.8",
+    "detected_at": "2021-11-04T00:00:00Z"
+  },
+  {
+    "package_name": "@lottiefiles/lottie-player",
+    "version": "2.0.5",
+    "threat_type": "credential-theft",
+    "description": "Account phished. Injected crypto wallet drainer popup. At least one victim lost $723K in Bitcoin",
+    "safe_version": "2.0.4",
+    "detected_at": "2024-10-30T00:00:00Z"
+  },
+  {
+    "package_name": "@lottiefiles/lottie-player",
+    "version": "2.0.6",
+    "threat_type": "credential-theft",
+    "description": "Second malicious version from same phishing attack. Same wallet drainer. CDN users auto-served compromised release",
+    "safe_version": "2.0.4",
+    "detected_at": "2024-10-30T00:00:00Z"
+  },
+  {
+    "package_name": "@lottiefiles/lottie-player",
+    "version": "2.0.7",
+    "threat_type": "credential-theft",
+    "description": "Third malicious version. Three compromised releases within one hour. Upgrade to 2.0.8",
+    "safe_version": "2.0.4",
+    "detected_at": "2024-10-30T00:00:00Z"
+  },
+  {
+    "package_name": "@rspack/core",
+    "version": "1.1.7",
+    "threat_type": "cryptominer",
+    "description": "Published via stolen npm tokens. Hides XMRig Monero miner in support.js",
+    "safe_version": "1.1.6",
+    "detected_at": "2024-12-19T00:00:00Z"
+  },
+  {
+    "package_name": "@rspack/cli",
+    "version": "1.1.7",
+    "threat_type": "cryptominer",
+    "description": "Companion to rspack/core compromise. Same stolen token, same XMRig miner payload",
+    "safe_version": "1.1.6",
+    "detected_at": "2024-12-19T00:00:00Z"
+  },
+  {
+    "package_name": "vant",
+    "version": "4.9.14",
+    "threat_type": "cryptominer",
+    "description": "Stolen npm tokens. XMRig miner hidden as /tmp/vant_helper. Multiple versions affected across three major branches",
+    "safe_version": "4.9.10",
+    "detected_at": "2024-12-19T00:00:00Z"
+  },
+  {
+    "package_name": "vant",
+    "version": "4.9.11",
+    "threat_type": "cryptominer",
+    "description": "Earlier compromised version in the vant cryptominer campaign",
+    "safe_version": "4.9.10",
+    "detected_at": "2024-12-19T00:00:00Z"
+  },
+  {
+    "package_name": "@0xengine/xmlrpc",
+    "version": "1.3.4",
+    "threat_type": "cryptominer",
+    "description": "Legitimate package turned malicious. Harvests SSH keys, bash history, and env vars every 12 hours. Deploys XMRig miner via systemd. Active for over a year",
+    "safe_version": "1.3.3",
+    "detected_at": "2024-11-01T00:00:00Z"
+  },
+  {
+    "package_name": "@ctrl/tinycolor",
+    "version": "4.1.1",
+    "threat_type": "malicious-code",
+    "description": "Shai-Hulud self-replicating worm. Runs TruffleHog to scan for secrets, steals npm/GitHub/AWS tokens, injects rogue GitHub Actions to spread",
+    "safe_version": "4.1.0",
+    "detected_at": "2025-09-15T00:00:00Z"
+  },
+  {
+    "package_name": "@ctrl/tinycolor",
+    "version": "4.1.2",
+    "threat_type": "malicious-code",
+    "description": "Second Shai-Hulud worm release. Same credential-stealing and self-propagating payload",
+    "safe_version": "4.1.0",
+    "detected_at": "2025-09-15T00:00:00Z"
+  },
+  {
+    "package_name": "ngx-bootstrap",
+    "version": "18.1.4",
+    "threat_type": "malicious-code",
+    "description": "Shai-Hulud worm victim. Postinstall steals secrets via TruffleHog and propagates to other packages",
+    "safe_version": "18.1.3",
+    "detected_at": "2025-09-15T00:00:00Z"
+  },
+  {
+    "package_name": "ngx-bootstrap",
+    "version": "20.0.5",
+    "threat_type": "malicious-code",
+    "description": "Later Shai-Hulud release across the 20.x branch. Same credential exfiltration and worm propagation",
+    "safe_version": "20.0.2",
+    "detected_at": "2025-09-15T00:00:00Z"
+  },
+  {
+    "package_name": "ng2-file-upload",
+    "version": "9.0.1",
+    "threat_type": "malicious-code",
+    "description": "Shai-Hulud worm. Steals npm tokens, GitHub PATs, and cloud credentials, then spreads to more packages",
+    "safe_version": "9.0.0",
+    "detected_at": "2025-09-15T00:00:00Z"
+  },
+  {
+    "package_name": "angulartics2",
+    "version": "14.1.2",
+    "threat_type": "malicious-code",
+    "description": "Shai-Hulud worm victim. Exfiltrates GITHUB_TOKEN, NPM_TOKEN, AWS_ACCESS_KEY_ID to attacker webhooks",
+    "safe_version": "14.1.0",
+    "detected_at": "2025-09-15T00:00:00Z"
+  },
+  {
+    "package_name": "ngx-toastr",
+    "version": "19.0.1",
+    "threat_type": "malicious-code",
+    "description": "Shai-Hulud worm propagation. Malicious preinstall scripts scan for and exfiltrate secrets",
+    "safe_version": "19.0.0",
+    "detected_at": "2025-09-15T00:00:00Z"
+  },
+  {
+    "package_name": "nx",
+    "version": "21.5.0",
+    "threat_type": "credential-theft",
+    "description": "S1ngularity attack via GitHub Actions injection. Deploys QUIETVAULT stealer that harvests tokens, keys, and secrets",
+    "safe_version": "21.4.0",
+    "detected_at": "2025-08-26T00:00:00Z"
+  },
+  {
+    "package_name": "nx",
+    "version": "20.9.0",
+    "threat_type": "credential-theft",
+    "description": "S1ngularity attack targeting legacy branch. Same QUIETVAULT stealer. Attacker gained full AWS admin access at a victim org within 72 hours",
+    "safe_version": "20.8.0",
+    "detected_at": "2025-08-26T00:00:00Z"
+  },
+  {
+    "package_name": "rand-user-agent",
+    "version": "2.0.84",
+    "threat_type": "backdoor",
+    "description": "Deprecated package hijacked. RAT establishes C2 connection for shell commands, file upload, and recon. Persists after downgrading",
+    "safe_version": "2.0.82",
+    "detected_at": "2025-05-05T00:00:00Z"
+  },
+  {
+    "package_name": "rand-user-agent",
+    "version": "1.0.110",
+    "threat_type": "backdoor",
+    "description": "Same hijack, 1.x branch. Same RAT payload. Full system scan required — downgrading does not remove the RAT",
+    "safe_version": "1.0.109",
+    "detected_at": "2025-05-05T00:00:00Z"
+  },
+  {
+    "package_name": "ethers-provider2",
+    "version": "1.0.0",
+    "threat_type": "backdoor",
+    "description": "Typosquat of ethers ecosystem. Patches the legitimate ethers package with a reverse shell backdoor. Uninstalling does NOT remove the backdoor",
+    "safe_version": "none",
+    "detected_at": "2025-03-15T00:00:00Z"
+  },
+  {
+    "package_name": "ethers-providerz",
+    "version": "1.0.0",
+    "threat_type": "backdoor",
+    "description": "Companion typosquat targeting ethers. Same reverse shell injection into the legitimate ethers library",
+    "safe_version": "none",
+    "detected_at": "2025-03-15T00:00:00Z"
+  },
+  {
+    "package_name": "claud-code",
+    "version": "0.2.1",
+    "threat_type": "credential-theft",
+    "description": "Typosquat targeting Claude Code users. Self-replicating worm that steals tokens, modifies projects to include itself, and injects rogue MCP servers into AI coding tools",
+    "safe_version": "none",
+    "detected_at": "2026-02-20T00:00:00Z"
+  },
+  {
+    "package_name": "cloude-code",
+    "version": "0.2.1",
+    "threat_type": "credential-theft",
+    "description": "Another Claude Code typosquat. Same MCP-injection worm that instructs AI assistants to exfiltrate SSH keys and AWS credentials",
+    "safe_version": "none",
+    "detected_at": "2026-02-20T00:00:00Z"
+  },
+  {
+    "package_name": "rimarf",
+    "version": "1.0.0",
+    "threat_type": "credential-theft",
+    "description": "Typosquat of rimraf. Part of 19-package SANDWORM_MODE campaign stealing credentials and propagating via stolen npm tokens",
+    "safe_version": "none",
+    "detected_at": "2026-02-20T00:00:00Z"
+  },
+  {
+    "package_name": "hardhta",
+    "version": "1.0.0",
+    "threat_type": "credential-theft",
+    "description": "Typosquat of Hardhat (Ethereum dev framework). Same self-replicating credential theft worm",
+    "safe_version": "none",
+    "detected_at": "2026-02-20T00:00:00Z"
+  },
+  {
+    "package_name": "node-hide-console-windows",
+    "version": "1.0.0",
+    "threat_type": "backdoor",
+    "description": "Typosquat of node-hide-console-window. Downloads Discord bot that installs r77 rootkit for persistent stealthy access",
+    "safe_version": "none",
+    "detected_at": "2024-10-31T00:00:00Z"
+  },
+  {
+    "package_name": "@teale.io/eslint-config",
+    "version": "1.8.12",
+    "threat_type": "credential-theft",
+    "description": "CanisterWorm attack. Steals npm auth tokens and launches background process to propagate the worm to all accessible packages",
+    "safe_version": "1.8.10",
+    "detected_at": "2026-03-20T00:00:00Z"
+  },
+  {
+    "package_name": "@typespec/spector",
+    "version": "0.1.0-alpha.27",
+    "threat_type": "credential-theft",
+    "description": "TypeSpec: Unauthenticated Remote Shutdown of Spector Mock Server via POST /.admin/stop",
+    "safe_version": "0.1.0-alpha.27",
+    "detected_at": "2026-09-04T21:43:13Z"
+  },
+  {
+    "package_name": "deepseek-tui",
+    "version": "0.8.6",
+    "threat_type": "malicious-code",
+    "description": "CodeWhale: Project config `allow_shell` override enables arbitrary shell command execution via cloned repository",
+    "safe_version": "0.8.41",
+    "detected_at": "2026-09-04T18:14:09Z"
+  },
+  {
+    "package_name": "codewhale",
+    "version": "0.8.41",
+    "threat_type": "malicious-code",
+    "description": "CodeWhale: Project config `allow_shell` override enables arbitrary shell command execution via cloned repository",
+    "safe_version": "0.8.64",
+    "detected_at": "2026-09-04T18:14:09Z"
+  },
+  {
+    "package_name": "deepseek-tui",
+    "version": "0.8.33",
+    "threat_type": "credential-theft",
+    "description": "CodeWhale: rlm_eval auto-approves arbitrary Python execution, bypassing the user's approval policy (RCE)",
+    "safe_version": "0.8.41",
+    "detected_at": "2026-09-04T18:12:15Z"
+  },
+  {
+    "package_name": "codewhale",
+    "version": "0.8.41",
+    "threat_type": "credential-theft",
+    "description": "CodeWhale: rlm_eval auto-approves arbitrary Python execution, bypassing the user's approval policy (RCE)",
+    "safe_version": "0.8.64",
+    "detected_at": "2026-09-04T18:12:15Z"
+  },
+  {
+    "package_name": "deepseek-tui",
+    "version": "0.3.27",
+    "threat_type": "malicious-code",
+    "description": "CodeWhale: Argument Injection in `git_blame` Tool Allows Arbitrary File Read Without Approval",
+    "safe_version": "0.8.41",
+    "detected_at": "2026-09-04T18:11:45Z"
+  },
+  {
+    "package_name": "codewhale",
+    "version": "0.8.41",
+    "threat_type": "malicious-code",
+    "description": "CodeWhale: Argument Injection in `git_blame` Tool Allows Arbitrary File Read Without Approval",
+    "safe_version": "0.8.64",
+    "detected_at": "2026-09-04T18:11:45Z"
+  },
+  {
+    "package_name": "deepseek-tui",
+    "version": "0.8.32",
+    "threat_type": "credential-theft",
+    "description": "CodeWhale: js_execution leaks parent environment to model context via missing env scrub",
+    "safe_version": "0.8.41",
+    "detected_at": "2026-09-04T18:03:08Z"
+  },
+  {
+    "package_name": "codewhale",
+    "version": "0.8.41",
+    "threat_type": "credential-theft",
+    "description": "CodeWhale: js_execution leaks parent environment to model context via missing env scrub",
+    "safe_version": "0.8.64",
+    "detected_at": "2026-09-04T18:03:08Z"
+  },
+  {
+    "package_name": "deepseek-tui",
+    "version": "0.3.27",
+    "threat_type": "malicious-code",
+    "description": "CodeWhale: Argument Injection in `git_show` Tool Allows Arbitrary File Write Without Approval",
+    "safe_version": "0.8.41",
+    "detected_at": "2026-09-04T18:02:37Z"
+  },
+  {
+    "package_name": "codewhale",
+    "version": "0.8.41",
+    "threat_type": "malicious-code",
+    "description": "CodeWhale: Argument Injection in `git_show` Tool Allows Arbitrary File Write Without Approval",
+    "safe_version": "0.8.64",
+    "detected_at": "2026-09-04T18:02:37Z"
+  },
+  {
+    "package_name": "deepseek-tui",
+    "version": "0.8.8",
+    "threat_type": "malicious-code",
+    "description": "CodeWhale: Project config `instructions` override enables arbitrary file read into AI system prompt via cloned repository",
+    "safe_version": "0.8.41",
+    "detected_at": "2026-09-04T18:00:37Z"
+  },
+  {
+    "package_name": "codewhale",
+    "version": "0.8.41",
+    "threat_type": "malicious-code",
+    "description": "CodeWhale: Project config `instructions` override enables arbitrary file read into AI system prompt via cloned repository",
+    "safe_version": "0.8.64",
+    "detected_at": "2026-09-04T18:00:37Z"
+  },
+  {
+    "package_name": "claude-code-templates",
+    "version": "1.29.4",
+    "threat_type": "malicious-code",
+    "description": "Claude Code Templates: Unauthenticated OS command injection (RCE) in Claude Code Studio server (--studio)",
+    "safe_version": "1.29.4",
+    "detected_at": "2026-09-03T19:50:47Z"
+  },
+  {
+    "package_name": "pnpm",
+    "version": "10.34.5",
+    "threat_type": "malicious-code",
+    "description": "pnpm: Virtual store linker path traversal via unvalidated depPath name in lockfileToDepGraph",
+    "safe_version": "10.34.5",
+    "detected_at": "2026-09-02T14:37:13Z"
+  },
+  {
+    "package_name": "pnpm",
+    "version": "11.0.0",
+    "threat_type": "malicious-code",
+    "description": "pnpm: Virtual store linker path traversal via unvalidated depPath name in lockfileToDepGraph",
+    "safe_version": "11.11.0",
+    "detected_at": "2026-09-02T14:37:13Z"
+  },
+  {
+    "package_name": "nanoid",
+    "version": "3.3.12",
+    "threat_type": "backdoor",
+    "description": "nanoid: Integer Overflow or Wraparound",
+    "safe_version": "3.3.12",
+    "detected_at": "2026-09-01T19:23:45Z"
+  },
+  {
+    "package_name": "nanoid",
+    "version": "4.0.0",
+    "threat_type": "backdoor",
+    "description": "nanoid: Integer Overflow or Wraparound",
+    "safe_version": "5.1.11",
+    "detected_at": "2026-09-01T19:23:45Z"
+  },
+  {
+    "package_name": "pnpm",
+    "version": "11.0.0",
+    "threat_type": "malicious-code",
+    "description": "pnpm: Environment secrets exfiltrated via env-placeholder expansion in proxy settings read from an untrusted pnpm-workspace.yaml",
+    "safe_version": "11.11.0",
+    "detected_at": "2026-09-01T19:22:42Z"
+  },
+  {
+    "package_name": "pnpm",
+    "version": "10.7.0",
+    "threat_type": "malicious-code",
+    "description": "pnpm: Environment secrets exfiltrated via env-placeholder expansion in proxy settings read from an untrusted pnpm-workspace.yaml",
+    "safe_version": "10.34.5",
+    "detected_at": "2026-09-01T19:22:42Z"
+  },
+  {
+    "package_name": "browserslist",
+    "version": "4.28.7",
+    "threat_type": "malicious-code",
+    "description": "Browserslist: Uncaught crash / prototype write via untrusted browserslist-stats.json custom stats (normalizeStats)",
+    "safe_version": "4.28.7",
+    "detected_at": "2026-09-01T16:41:54Z"
+  },
+  {
+    "package_name": "mysql2",
+    "version": "3.22.0",
+    "threat_type": "credential-theft",
+    "description": "MySQL2: Auth Plugin Downgrade to mysql_clear_password Leaks Plaintext Credentials",
+    "safe_version": "3.22.0",
+    "detected_at": "2026-09-01T16:40:34Z"
+  },
+  {
+    "package_name": "engine.io",
+    "version": "6.5.0",
+    "threat_type": "malicious-code",
+    "description": "Socket.IO: Engine.IO WebTransport SID DoS",
+    "safe_version": "6.6.7",
+    "detected_at": "2026-08-31T21:28:12Z"
+  },
+  {
+    "package_name": "mariadb",
+    "version": "3.2.4",
+    "threat_type": "credential-theft",
+    "description": "MariaDB's connector leaks the cleartext password to an MitM despite `ssl: true`",
+    "safe_version": "3.2.4",
+    "detected_at": "2026-08-28T19:03:38Z"
+  },
+  {
+    "package_name": "mariadb",
+    "version": "3.3.0",
+    "threat_type": "credential-theft",
+    "description": "MariaDB's connector leaks the cleartext password to an MitM despite `ssl: true`",
+    "safe_version": "3.3.3",
+    "detected_at": "2026-08-28T19:03:38Z"
+  },
+  {
+    "package_name": "mariadb",
+    "version": "3.4.0",
+    "threat_type": "credential-theft",
+    "description": "MariaDB's connector leaks the cleartext password to an MitM despite `ssl: true`",
+    "safe_version": "3.4.6",
+    "detected_at": "2026-08-28T19:03:38Z"
+  },
+  {
+    "package_name": "mariadb",
+    "version": "3.5.0",
+    "threat_type": "credential-theft",
+    "description": "MariaDB's connector leaks the cleartext password to an MitM despite `ssl: true`",
+    "safe_version": "3.5.3",
+    "detected_at": "2026-08-28T19:03:38Z"
+  },
+  {
+    "package_name": "9router",
+    "version": "0.5.2",
+    "threat_type": "credential-theft",
+    "description": "9router: Unauthenticated `/v1` proxy access via `Host`-header spoofing → open AI relay + SSRF",
+    "safe_version": "0.5.2",
+    "detected_at": "2026-08-28T18:33:20Z"
+  },
+  {
+    "package_name": "9router",
+    "version": "0.5.2",
+    "threat_type": "credential-theft",
+    "description": "9router: Unauthenticated LLM proxy access via /codex rewrite authorization bypass",
+    "safe_version": "0.5.2",
+    "detected_at": "2026-08-28T18:32:01Z"
+  },
+  {
+    "package_name": "suneditor",
+    "version": "3.1.4",
+    "threat_type": "malicious-code",
+    "description": "SunEditor Embed Plugin has DOM XSS via External Script Element After Iframe Embed",
+    "safe_version": "3.1.4",
+    "detected_at": "2026-08-26T15:26:24Z"
+  },
+  {
+    "package_name": "@logtape/syslog",
+    "version": "2.1.0",
+    "threat_type": "malicious-code",
+    "description": "@logtape/syslog: syslog log injection via unescaped control characters and unvalidated SD-NAME keys",
+    "safe_version": "2.1.5",
+    "detected_at": "2026-08-26T14:28:04Z"
+  },
+  {
+    "package_name": "@logtape/syslog",
+    "version": "2.0.0",
+    "threat_type": "malicious-code",
+    "description": "@logtape/syslog: syslog log injection via unescaped control characters and unvalidated SD-NAME keys",
+    "safe_version": "2.0.14",
+    "detected_at": "2026-08-26T14:28:04Z"
+  },
+  {
+    "package_name": "@logtape/syslog",
+    "version": "1.3.11",
+    "threat_type": "malicious-code",
+    "description": "@logtape/syslog: syslog log injection via unescaped control characters and unvalidated SD-NAME keys",
+    "safe_version": "1.3.11",
+    "detected_at": "2026-08-26T14:28:04Z"
+  },
+  {
+    "package_name": "@budibase/server",
+    "version": "3.38.1",
+    "threat_type": "credential-theft",
+    "description": "Budibase authenticated arbitrary S3 signed upload URL issuance via `/api/attachments/:datasourceId/url`",
+    "safe_version": "none",
+    "detected_at": "2026-08-26T14:07:26Z"
+  },
+  {
+    "package_name": "browse-mcp",
+    "version": "0.8.2",
+    "threat_type": "malicious-code",
+    "description": "browse-mcp has an arbitrary file write via unconfined download and state paths",
+    "safe_version": "0.8.2",
+    "detected_at": "2026-08-25T16:28:32Z"
+  },
+  {
+    "package_name": "urllib",
+    "version": "3.0.0",
+    "threat_type": "malicious-code",
+    "description": "urllib's cross-origin redirects preserve credential-bearing request headers, leading to potential credential leakage",
+    "safe_version": "4.9.1",
+    "detected_at": "2026-08-25T16:19:32Z"
+  },
+  {
+    "package_name": "urllib",
+    "version": "2.44.1",
+    "threat_type": "malicious-code",
+    "description": "urllib's cross-origin redirects preserve credential-bearing request headers, leading to potential credential leakage",
+    "safe_version": "2.44.1",
+    "detected_at": "2026-08-25T16:19:32Z"
+  },
+  {
+    "package_name": "pickem",
+    "version": "1.0.7",
+    "threat_type": "malicious-code",
+    "description": "pickem vulnerable to terminal escape-sequence injection via unsanitized item text",
+    "safe_version": "1.0.7",
+    "detected_at": "2026-08-25T15:59:11Z"
+  },
+  {
+    "package_name": "defuddle",
+    "version": "0.19.1",
+    "threat_type": "malicious-code",
+    "description": "Defuddle vulnerable to XSS via unescaped attribute interpolation in site extractors",
+    "safe_version": "0.19.1",
+    "detected_at": "2026-08-21T20:54:56Z"
+  },
+  {
+    "package_name": "unleash-server",
+    "version": "7.5.2",
+    "threat_type": "credential-theft",
+    "description": "Unleash: Unauthenticated single-request DoS via OpenAPI validation error formatter",
+    "safe_version": "7.5.2",
+    "detected_at": "2026-08-21T19:14:37Z"
+  },
+  {
+    "package_name": "unleash-server",
+    "version": "7.6.0",
+    "threat_type": "credential-theft",
+    "description": "Unleash: Unauthenticated single-request DoS via OpenAPI validation error formatter",
+    "safe_version": "7.6.5",
+    "detected_at": "2026-08-21T19:14:37Z"
+  },
+  {
+    "package_name": "unleash-server",
+    "version": "8.0.0",
+    "threat_type": "credential-theft",
+    "description": "Unleash: Unauthenticated single-request DoS via OpenAPI validation error formatter",
+    "safe_version": "8.0.2",
+    "detected_at": "2026-08-21T19:14:37Z"
+  },
+  {
+    "package_name": "@nocobase/server",
+    "version": "2.1.5",
+    "threat_type": "malicious-code",
+    "description": "NocoBase: Arbitrary File Write chained with Local file Inclusion leads to Remote code execution",
+    "safe_version": "2.1.5",
+    "detected_at": "2026-08-20T18:42:21Z"
+  },
+  {
+    "package_name": "node-opcua",
+    "version": "2.165.0",
+    "threat_type": "malicious-code",
+    "description": "node-opcua missing nonce verification in UserNameIdentityToken authentication",
+    "safe_version": "none",
+    "detected_at": "2026-08-20T18:35:33Z"
+  },
+  {
+    "package_name": "@logto/tunnel",
+    "version": "0.3.9",
+    "threat_type": "credential-theft",
+    "description": "logto-tunnel serves files outside --experience-path via path traversal",
+    "safe_version": "0.3.9",
+    "detected_at": "2026-08-19T20:24:06Z"
+  },
+  {
+    "package_name": "@contentful/mcp-server",
+    "version": "1.7.19",
+    "threat_type": "credential-theft",
+    "description": "Contentful MCP Server: export_space/import_space tools pass LLM-controlled `host`/`proxy` args to CMA client, redirecting server PAT to attacker-controlled endpoint",
+    "safe_version": "1.7.19",
+    "detected_at": "2026-08-19T19:17:00Z"
+  },
+  {
+    "package_name": "@contentful/mcp-tools",
+    "version": "0.4.5",
+    "threat_type": "credential-theft",
+    "description": "Contentful MCP Server: export_space/import_space tools pass LLM-controlled `host`/`proxy` args to CMA client, redirecting server PAT to attacker-controlled endpoint",
+    "safe_version": "0.4.5",
+    "detected_at": "2026-08-19T19:17:00Z"
+  },
+  {
+    "package_name": "claude-faf-mcp",
+    "version": "5.7.2",
+    "threat_type": "credential-theft",
+    "description": "claude-faf-mcp has an arbitrary local file read/write via unconfined `path` argument in FAF tools",
+    "safe_version": "5.7.2",
+    "detected_at": "2026-08-19T19:15:25Z"
+  },
+  {
+    "package_name": "faf-mcp",
+    "version": "2.1.3",
+    "threat_type": "credential-theft",
+    "description": "faf-mcp has an arbitrary local file read/write via unconfined `path` argument in FAF tools",
+    "safe_version": "2.1.3",
+    "detected_at": "2026-08-19T19:15:13Z"
+  },
+  {
+    "package_name": "grok-faf-mcp",
+    "version": "1.5.3",
+    "threat_type": "credential-theft",
+    "description": "grok-faf-mcp has an arbitrary local file read via unconfined `path` argument in FAF tools",
+    "safe_version": "1.5.3",
+    "detected_at": "2026-08-19T19:15:01Z"
+  },
+  {
+    "package_name": "meshcentral",
+    "version": "1.1.60",
+    "threat_type": "credential-theft",
+    "description": "MeshCentral has unsanitized data fields",
+    "safe_version": "1.1.60",
+    "detected_at": "2026-08-18T20:09:35Z"
+  },
+  {
+    "package_name": "@rhinostone/swig",
+    "version": "2.7.1",
+    "threat_type": "credential-theft",
+    "description": "@rhinostone/swig: arbitrary local file read via include/extends path traversal",
+    "safe_version": "2.7.1",
+    "detected_at": "2026-08-18T16:31:16Z"
+  },
+  {
+    "package_name": "@rhinostone/swig-core",
+    "version": "2.7.1",
+    "threat_type": "credential-theft",
+    "description": "@rhinostone/swig: arbitrary local file read via include/extends path traversal",
+    "safe_version": "2.7.1",
+    "detected_at": "2026-08-18T16:31:16Z"
+  },
+  {
+    "package_name": "@rhinostone/swig-twig",
+    "version": "2.7.1",
+    "threat_type": "credential-theft",
+    "description": "@rhinostone/swig: arbitrary local file read via include/extends path traversal",
+    "safe_version": "2.7.1",
+    "detected_at": "2026-08-18T16:31:16Z"
+  },
+  {
+    "package_name": "@rhinostone/swig-jinja2",
+    "version": "2.7.1",
+    "threat_type": "credential-theft",
+    "description": "@rhinostone/swig: arbitrary local file read via include/extends path traversal",
+    "safe_version": "2.7.1",
+    "detected_at": "2026-08-18T16:31:16Z"
+  },
+  {
+    "package_name": "@rhinostone/swig-django",
+    "version": "2.7.1",
+    "threat_type": "credential-theft",
+    "description": "@rhinostone/swig: arbitrary local file read via include/extends path traversal",
+    "safe_version": "2.7.1",
+    "detected_at": "2026-08-18T16:31:16Z"
+  },
+  {
+    "package_name": "mlflow",
+    "version": "3.15.0",
+    "threat_type": "credential-theft",
+    "description": "MLflow: CreateModelVersion source validation does not check READ permission on referenced run_id",
+    "safe_version": "3.15.0",
+    "detected_at": "2026-08-17T21:59:09Z"
+  },
+  {
+    "package_name": "9router",
+    "version": "0.5.4",
+    "threat_type": "malicious-code",
+    "description": "9Router: Authenticated Server-Side Request Forgery (SSRF) via OIDC Provider Test Endpoint",
+    "safe_version": "none",
+    "detected_at": "2026-08-17T21:58:43Z"
+  },
+  {
+    "package_name": "ep_etherpad-lite",
+    "version": "3.3.0",
+    "threat_type": "credential-theft",
+    "description": "Etherpad has stored XSS in HTML export via unescaped attribute-pool values",
+    "safe_version": "3.3.0",
+    "detected_at": "2026-08-17T17:49:38Z"
+  },
+  {
+    "package_name": "@medplum/core",
+    "version": "5.1.6",
+    "threat_type": "malicious-code",
+    "description": "Medplum: Improper Validation of Redirect URI in External Auth Callback allows Authorization Code Leakage",
+    "safe_version": "5.1.6",
+    "detected_at": "2026-08-17T13:36:17Z"
+  },
+  {
+    "package_name": "deepmerge-ts",
+    "version": "8.0.0",
+    "threat_type": "malicious-code",
+    "description": "DeepmergeTS has stack exhaustion when merging recursive object graphs",
+    "safe_version": "8.0.0",
+    "detected_at": "2026-08-17T13:32:13Z"
+  },
+  {
+    "package_name": "@ooples/token-optimizer-mcp",
+    "version": "5.1.0",
+    "threat_type": "malicious-code",
+    "description": "Token Optimizer MCP: OS command injection in smart_user via username in get-user-info",
+    "safe_version": "5.1.0",
+    "detected_at": "2026-08-14T21:42:06Z"
+  },
+  {
+    "package_name": "@sap/approuter",
+    "version": "23.0.0",
+    "threat_type": "credential-theft",
+    "description": "SAP Approuter has an Information Disclosure vulnerability",
+    "safe_version": "23.0.0",
+    "detected_at": "2026-08-11T03:31:56Z"
+  },
+  {
+    "package_name": "ngx-extended-pdf-viewer",
+    "version": "27.0.0-rc.0",
+    "threat_type": "malicious-code",
+    "description": "ngx-extended-pdf-viewer bundles a version of pdf.js vulnerable to",
+    "safe_version": "29.0.0-rc.3",
+    "detected_at": "2026-08-06T21:13:59Z"
+  },
+  {
+    "package_name": "pdfjs-dist",
+    "version": "5.6.83",
+    "threat_type": "malicious-code",
+    "description": "PDF.js: Arbitrary JavaScript execution upon opening a malicious PDF",
+    "safe_version": "6.2.108",
+    "detected_at": "2026-08-06T21:12:27Z"
+  },
+  {
+    "package_name": "nx",
+    "version": "20.8.0",
+    "threat_type": "malicious-code",
+    "description": "Nx: Zip-Slip in the self-hosted remote cache",
+    "safe_version": "22.7.7",
+    "detected_at": "2026-08-06T20:10:03Z"
+  },
+  {
+    "package_name": "@nx/s3-cache",
+    "version": "5.0.7",
+    "threat_type": "malicious-code",
+    "description": "Nx: Zip-Slip in the self-hosted remote cache",
+    "safe_version": "none",
+    "detected_at": "2026-08-06T20:10:03Z"
+  },
+  {
+    "package_name": "@nx/gcs-cache",
+    "version": "5.0.7",
+    "threat_type": "malicious-code",
+    "description": "Nx: Zip-Slip in the self-hosted remote cache",
+    "safe_version": "none",
+    "detected_at": "2026-08-06T20:10:03Z"
+  },
+  {
+    "package_name": "@nx/azure-cache",
+    "version": "5.0.7",
+    "threat_type": "malicious-code",
+    "description": "Nx: Zip-Slip in the self-hosted remote cache",
+    "safe_version": "none",
+    "detected_at": "2026-08-06T20:10:03Z"
+  },
+  {
+    "package_name": "@nx/shared-fs-cache",
+    "version": "5.0.7",
+    "threat_type": "malicious-code",
+    "description": "Nx: Zip-Slip in the self-hosted remote cache",
+    "safe_version": "none",
+    "detected_at": "2026-08-06T20:10:03Z"
+  },
+  {
+    "package_name": "@nx/powerpack-s3-cache",
+    "version": "5.0.7",
+    "threat_type": "malicious-code",
+    "description": "Nx: Zip-Slip in the self-hosted remote cache",
+    "safe_version": "none",
+    "detected_at": "2026-08-06T20:10:03Z"
+  },
+  {
+    "package_name": "@nx/powerpack-gcs-cache",
+    "version": "5.0.7",
+    "threat_type": "malicious-code",
+    "description": "Nx: Zip-Slip in the self-hosted remote cache",
+    "safe_version": "none",
+    "detected_at": "2026-08-06T20:10:03Z"
+  },
+  {
+    "package_name": "@nx/powerpack-azure-cache",
+    "version": "5.0.7",
+    "threat_type": "malicious-code",
+    "description": "Nx: Zip-Slip in the self-hosted remote cache",
+    "safe_version": "none",
+    "detected_at": "2026-08-06T20:10:03Z"
+  },
+  {
+    "package_name": "@nx/powerpack-shared-fs-cache",
+    "version": "5.0.7",
+    "threat_type": "malicious-code",
+    "description": "Nx: Zip-Slip in the self-hosted remote cache",
+    "safe_version": "none",
+    "detected_at": "2026-08-06T20:10:03Z"
+  },
+  {
+    "package_name": "nx",
+    "version": "23.0.0",
+    "threat_type": "malicious-code",
+    "description": "Nx: Zip-Slip in the self-hosted remote cache",
+    "safe_version": "23.0.2",
+    "detected_at": "2026-08-06T20:10:03Z"
+  },
+  {
+    "package_name": "electron",
+    "version": "39.8.9",
+    "threat_type": "backdoor",
+    "description": "Electron: Context isolation bypass via Function.prototype.bind hijack",
+    "safe_version": "39.8.9",
+    "detected_at": "2026-08-05T15:46:08Z"
+  },
+  {
+    "package_name": "electron",
+    "version": "40.0.0-alpha.1",
+    "threat_type": "backdoor",
+    "description": "Electron: Context isolation bypass via Function.prototype.bind hijack",
+    "safe_version": "40.9.2",
+    "detected_at": "2026-08-05T15:46:08Z"
+  },
+  {
+    "package_name": "electron",
+    "version": "41.0.0-alpha.1",
+    "threat_type": "backdoor",
+    "description": "Electron: Context isolation bypass via Function.prototype.bind hijack",
+    "safe_version": "41.2.2",
+    "detected_at": "2026-08-05T15:46:08Z"
+  },
+  {
+    "package_name": "electron",
+    "version": "42.0.0-alpha.1",
+    "threat_type": "backdoor",
+    "description": "Electron: Context isolation bypass via Function.prototype.bind hijack",
+    "safe_version": "42.0.0-beta.5",
+    "detected_at": "2026-08-05T15:46:08Z"
+  },
+  {
+    "package_name": "@tryghost/activitypub",
+    "version": "3.1.0",
+    "threat_type": "malicious-code",
+    "description": "XSS in Ghost's ActivityPub client",
+    "safe_version": "3.1.0",
+    "detected_at": "2026-08-04T21:54:01Z"
+  },
+  {
+    "package_name": "flowise",
+    "version": "3.1.3",
+    "threat_type": "credential-theft",
+    "description": "Flowise: Cross-Workspace OAuth2 Credential Metadata Leak",
+    "safe_version": "3.1.3",
+    "detected_at": "2026-08-04T18:01:29Z"
+  },
+  {
+    "package_name": "flowise",
+    "version": "3.1.3",
+    "threat_type": "credential-theft",
+    "description": "Flowise: Cross-workspace credential IDOR in openai-assistants-vector-store",
+    "safe_version": "3.1.3",
+    "detected_at": "2026-08-04T17:51:48Z"
+  },
+  {
+    "package_name": "flowise-components",
+    "version": "3.1.3",
+    "threat_type": "credential-theft",
+    "description": "Flowise: Authenticated arbitrary file write in the `S3 Directory` document loader via unsanitized S3 object keys",
+    "safe_version": "3.1.3",
+    "detected_at": "2026-08-04T17:43:45Z"
+  },
+  {
+    "package_name": "flowise",
+    "version": "3.1.3",
+    "threat_type": "credential-theft",
+    "description": "Flowise: Authenticated arbitrary file write in the `S3 Directory` document loader via unsanitized S3 object keys",
+    "safe_version": "3.1.3",
+    "detected_at": "2026-08-04T17:43:45Z"
+  },
+  {
+    "package_name": "flowise",
+    "version": "3.1.3",
+    "threat_type": "malicious-code",
+    "description": "Flowise: Patch Bypass: npm_config_yes bypasses MCP environment variable blocklist (Unauthenticated RCE)",
+    "safe_version": "3.1.3",
+    "detected_at": "2026-08-04T17:09:48Z"
+  },
+  {
+    "package_name": "flowise-components",
+    "version": "3.1.3",
+    "threat_type": "malicious-code",
+    "description": "Flowise: Patch Bypass: npm_config_yes bypasses MCP environment variable blocklist (Unauthenticated RCE)",
+    "safe_version": "3.1.3",
+    "detected_at": "2026-08-04T17:09:48Z"
+  },
+  {
+    "package_name": "flowise",
+    "version": "3.1.3",
+    "threat_type": "backdoor",
+    "description": "Flowise: Unauthenticated Property Injection into Flow Execution Context via Ungated `overrideConfig` Spread in Prediction API",
+    "safe_version": "3.1.3",
+    "detected_at": "2026-08-04T15:56:11Z"
+  },
+  {
+    "package_name": "flowise",
+    "version": "3.1.3",
+    "threat_type": "credential-theft",
+    "description": "Flowise: SSRF Protection Bypass via IPv4-Mapped IPv6 Addresses",
+    "safe_version": "3.1.3",
+    "detected_at": "2026-08-04T15:51:58Z"
+  },
+  {
+    "package_name": "flowise",
+    "version": "3.1.3",
+    "threat_type": "credential-theft",
+    "description": "Flowise: Unauthenticated OAuth2 Refresh Enables Non-Blind SSRF and Secret Exfiltration",
+    "safe_version": "3.1.3",
+    "detected_at": "2026-08-04T14:20:49Z"
+  }
 ]
