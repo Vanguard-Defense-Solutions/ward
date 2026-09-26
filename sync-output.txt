@@ -1,0 +1,4 @@
+Fetching npm advisories from GitHub Advisory Database...
+Fetched 100 advisories
+Found 64 supply-chain threats
+Added 64 new threats (106 total)
